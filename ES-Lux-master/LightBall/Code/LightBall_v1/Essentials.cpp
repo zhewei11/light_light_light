@@ -156,25 +156,25 @@ void hsv_test(){
     set_hsv(360, 255, 255);
 }*/
 
-void ISR_enable()
-{
-  TCCR2A = 0;
-  TCCR2B = 0; 
-  TCCR2B |= (1<<WGM22);  // CTC mode; Clear Timer on Compare
-  TCCR2B |= (1<<CS22) | (1<<CS20);  // Prescaler == 8 ||(1<<CS30)
-  TIMSK2 |= (1 << OCIE2A);  // enable CTC for TIMER1_COMPA_vect
-  TCNT2=0;  // counter 歸零 
-  OCR2A = 1000;
-}
+// void ISR_enable()
+// {
+//   TCCR2A = 0;
+//   TCCR2B = 0; 
+//   TCCR2B |= (1<<WGM22);  // CTC mode; Clear Timer on Compare
+//   TCCR2B |= (1<<CS22) | (1<<CS20);  // Prescaler == 8 ||(1<<CS30)
+//   TIMSK2 |= (1 << OCIE2A);  // enable CTC for TIMER1_COMPA_vect
+//   TCNT2=0;  // counter 歸零 
+//   OCR2A = 1000;
+// }
 
-void ISR_disable()
-{
-  TCCR2A = 0;
-  TCCR2B = 0; 
-}
+// void ISR_disable()
+// {
+//   TCCR2A = 0;
+//   TCCR2B = 0; 
+// }
 
 
-ISR(TIMER2_COMPA_vect)
-{
-    led_update();
-}
+// ISR(TIMER2_COMPA_vect)
+// {
+//     led_update();
+// }

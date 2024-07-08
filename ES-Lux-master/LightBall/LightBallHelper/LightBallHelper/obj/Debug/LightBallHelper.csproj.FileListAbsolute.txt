@@ -15,3 +15,12 @@ G:\DIYnew\LightBall\LightBallHelper\LightBallHelper\bin\Debug\WaveFormRendererLi
 G:\DIYnew\LightBall\LightBallHelper\LightBallHelper\bin\Debug\WaveFormRendererLib.pdb
 G:\DIYnew\LightBall\LightBallHelper\LightBallHelper\obj\Debug\LightBallHelper.Resource1.resources
 G:\DIYnew\LightBall\LightBallHelper\LightBallHelper\obj\Debug\LightBallHelper.ColorBar.resources
+D:\light_light_light\ES-Lux-master\LightBall\LightBallHelper\LightBallHelper\obj\Debug\LightBallHelper.csproj.AssemblyReference.cache
+D:\light_light_light\ES-Lux-master\LightBall\LightBallHelper\LightBallHelper\obj\Debug\LightBallHelper.LightBallHelper.resources
+D:\light_light_light\ES-Lux-master\LightBall\LightBallHelper\LightBallHelper\obj\Debug\LightBallHelper.Properties.Resources.resources
+D:\light_light_light\ES-Lux-master\LightBall\LightBallHelper\LightBallHelper\obj\Debug\LightBallHelper.Resource1.resources
+D:\light_light_light\ES-Lux-master\LightBall\LightBallHelper\LightBallHelper\obj\Debug\LightBallHelper.ColorBar.resources
+D:\light_light_light\ES-Lux-master\LightBall\LightBallHelper\LightBallHelper\obj\Debug\LightBallHelper.csproj.GenerateResource.cache
+D:\light_light_light\ES-Lux-master\LightBall\LightBallHelper\LightBallHelper\obj\Debug\LightBallHelper.csproj.CoreCompileInputs.cache
+D:\light_light_light\ES-Lux-master\LightBall\LightBallHelper\LightBallHelper\obj\Debug\LightBallHelper.exe
+D:\light_light_light\ES-Lux-master\LightBall\LightBallHelper\LightBallHelper\obj\Debug\LightBallHelper.pdb

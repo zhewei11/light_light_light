@@ -58,7 +58,7 @@ uint16 inline get_cmd_para_2(int index, int para);
 uint24 inline get_cmd_para_3(int index, int para);
 void buffer_update();
 //void hsv_test();
-void ISR_enable();
-void ISR_disable();
+// void ISR_enable();
+// void ISR_disable();
 
 #endif

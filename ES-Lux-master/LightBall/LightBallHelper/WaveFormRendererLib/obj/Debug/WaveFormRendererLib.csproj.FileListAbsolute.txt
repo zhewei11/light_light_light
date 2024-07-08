@@ -16,3 +16,12 @@ G:\DIYnew\LightBall\LightBallHelper\WaveFormRendererLib\obj\Debug\WaveFormRender
 G:\DIYnew\LightBall\LightBallHelper\WaveFormRendererLib\obj\Debug\WaveFormRendererLib.csproj.CopyComplete
 G:\DIYnew\LightBall\LightBallHelper\WaveFormRendererLib\obj\Debug\WaveFormRendererLib.dll
 G:\DIYnew\LightBall\LightBallHelper\WaveFormRendererLib\obj\Debug\WaveFormRendererLib.pdb
+D:\light_light_light\ES-Lux-master\LightBall\LightBallHelper\WaveFormRendererLib\bin\Debug\WaveFormRendererLib.dll
+D:\light_light_light\ES-Lux-master\LightBall\LightBallHelper\WaveFormRendererLib\bin\Debug\WaveFormRendererLib.pdb
+D:\light_light_light\ES-Lux-master\LightBall\LightBallHelper\WaveFormRendererLib\bin\Debug\NAudio.dll
+D:\light_light_light\ES-Lux-master\LightBall\LightBallHelper\WaveFormRendererLib\bin\Debug\NAudio.xml
+D:\light_light_light\ES-Lux-master\LightBall\LightBallHelper\WaveFormRendererLib\obj\Debug\WaveFormRendererLib.csproj.AssemblyReference.cache
+D:\light_light_light\ES-Lux-master\LightBall\LightBallHelper\WaveFormRendererLib\obj\Debug\WaveFormRendererLib.csproj.CoreCompileInputs.cache
+D:\light_light_light\ES-Lux-master\LightBall\LightBallHelper\WaveFormRendererLib\obj\Debug\WaveFormRendererLib.csproj.CopyComplete
+D:\light_light_light\ES-Lux-master\LightBall\LightBallHelper\WaveFormRendererLib\obj\Debug\WaveFormRendererLib.dll
+D:\light_light_light\ES-Lux-master\LightBall\LightBallHelper\WaveFormRendererLib\obj\Debug\WaveFormRendererLib.pdb

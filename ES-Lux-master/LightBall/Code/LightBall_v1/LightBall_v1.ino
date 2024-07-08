@@ -6,12 +6,12 @@ void setup() {
     #ifdef DEBUGGER
     Serial.begin(9600);
     #endif
-    ISR_disable();
+    // ISR_disable();
     led_init();
 
     while(digitalRead(BTN_PIN)) ;
     buffer_init();
-    ISR_enable();
+    // ISR_enable();
 }
 
 void loop() {
