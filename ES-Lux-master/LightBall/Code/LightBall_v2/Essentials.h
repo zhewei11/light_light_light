@@ -15,11 +15,11 @@
 #define uint24 unsigned long
 
 /* LED */
-#define   BTN_PIN   D3
+#define   BTN_PIN   2
 
-#define   RED_LED_PIN   D0
-#define GREEN_LED_PIN   D1
-#define  BLUE_LED_PIN   D2
+#define   RED_LED_PIN   14
+#define GREEN_LED_PIN   16
+#define  BLUE_LED_PIN   13
 #define LED_OPEN  1
 #define LED_CLOSE 0
 #define LED_R_INDEX 0

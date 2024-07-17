@@ -24,10 +24,6 @@ void buffer_init(){
 
 void inline led_update(){
     analogWrite(RED_LED_PIN,    led_buffer[LED_R_INDEX]);
-    //////////////////////////////////////////////////////////////////////////////
-    if(led_buffer[LED_G_INDEX]==0) digitalWrite(LED_BUILTIN,   LED_CLOSE);
-    else digitalWrite(LED_BUILTIN,   LED_OPEN);
-    /////////////////////////////////////////////////////////////////////////////
     analogWrite(GREEN_LED_PIN,  led_buffer[LED_G_INDEX]);
     analogWrite(BLUE_LED_PIN,   led_buffer[LED_B_INDEX]);
 }
@@ -62,7 +58,7 @@ uint24 inline get_cmd_para_3(int index, int para){
          | (uint24)cmd_buffer[index][BUFFER_P1_BIT + para + 2];
 }
 void buffer_update(){
-    // Serial.print(buffer_excute_counter);
+    Serial.print(buffer_excute_counter);
     // Serial.print(":");
     // Serial.print(get_buffer_start_time());
     // Serial.print(":");

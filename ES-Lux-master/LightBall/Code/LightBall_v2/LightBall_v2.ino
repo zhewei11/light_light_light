@@ -61,7 +61,7 @@ void setup() {
 
 void loop() {
   ArduinoOTA.handle();
-  // Serial.println(start);
+  Serial.println(start);
   
   if(digitalRead(BTN_PIN)==0) {
     led_init();
@@ -72,7 +72,7 @@ void loop() {
     buffer_update();
   }
   else{
-    analogWrite(RED_LED_PIN,    128);
+    analogWrite(RED_LED_PIN,    16 );
   }
     
 }
