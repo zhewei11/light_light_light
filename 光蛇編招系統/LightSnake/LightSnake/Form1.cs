@@ -362,6 +362,5 @@ namespace LightSnake
             outputDevice?.Dispose();
             audioFile?.Dispose();
         }
-
     }
 }

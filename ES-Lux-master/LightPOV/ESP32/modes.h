@@ -22,6 +22,7 @@ private:
     uint16_t calc_ramp(uint16_t idx, uint8_t range, uint8_t lower, uint8_t upper, bool overflow=false);
     uint16_t calc_tri(uint16_t idx, uint8_t range, uint8_t lower, uint8_t upper, bool overflow=false);
     uint16_t calc_pulse(uint16_t idx, uint8_t range, uint8_t lower, uint8_t top);
+    uint16_t calc_step(uint16_t idx, uint8_t range, uint8_t lower, uint8_t step, uint8_t num, bool overflow);
 
     uint16_t getFuncValue(ValueParam* vp, uint16_t idx, bool overflow=false);
 
