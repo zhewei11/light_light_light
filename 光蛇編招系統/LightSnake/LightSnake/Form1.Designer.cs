@@ -41,16 +41,16 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.label5 = new System.Windows.Forms.Label();
-            this.textBox4 = new System.Windows.Forms.TextBox();
-            this.label4 = new System.Windows.Forms.Label();
-            this.textBox3 = new System.Windows.Forms.TextBox();
-            this.label3 = new System.Windows.Forms.Label();
-            this.textBox2 = new System.Windows.Forms.TextBox();
-            this.labXHRange = new System.Windows.Forms.Label();
-            this.comboXH = new System.Windows.Forms.ComboBox();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.labXH = new System.Windows.Forms.Label();
+            this.lab_XH_p2 = new System.Windows.Forms.Label();
+            this.txt_XH_p2 = new System.Windows.Forms.TextBox();
+            this.lab_XH_p1 = new System.Windows.Forms.Label();
+            this.txt_XH_p1 = new System.Windows.Forms.TextBox();
+            this.lab_XH_Lower = new System.Windows.Forms.Label();
+            this.txt_XH_Lower = new System.Windows.Forms.TextBox();
+            this.lab_XH_Range = new System.Windows.Forms.Label();
+            this.combox_XH = new System.Windows.Forms.ComboBox();
+            this.txt_XH_Range = new System.Windows.Forms.TextBox();
+            this.lab_XH = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.listBox1 = new System.Windows.Forms.ListBox();
             this.panel2 = new System.Windows.Forms.Panel();
@@ -145,117 +145,117 @@
             // 
             // groupBox3
             // 
-            this.groupBox3.Location = new System.Drawing.Point(1168, 17);
+            this.groupBox3.Location = new System.Drawing.Point(1141, 17);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(402, 440);
+            this.groupBox3.Size = new System.Drawing.Size(429, 440);
             this.groupBox3.TabIndex = 5;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "groupBox3";
             // 
             // groupBox2
             // 
-            this.groupBox2.Controls.Add(this.label5);
-            this.groupBox2.Controls.Add(this.textBox4);
-            this.groupBox2.Controls.Add(this.label4);
-            this.groupBox2.Controls.Add(this.textBox3);
-            this.groupBox2.Controls.Add(this.label3);
-            this.groupBox2.Controls.Add(this.textBox2);
-            this.groupBox2.Controls.Add(this.labXHRange);
-            this.groupBox2.Controls.Add(this.comboXH);
-            this.groupBox2.Controls.Add(this.textBox1);
-            this.groupBox2.Controls.Add(this.labXH);
+            this.groupBox2.Controls.Add(this.lab_XH_p2);
+            this.groupBox2.Controls.Add(this.txt_XH_p2);
+            this.groupBox2.Controls.Add(this.lab_XH_p1);
+            this.groupBox2.Controls.Add(this.txt_XH_p1);
+            this.groupBox2.Controls.Add(this.lab_XH_Lower);
+            this.groupBox2.Controls.Add(this.txt_XH_Lower);
+            this.groupBox2.Controls.Add(this.lab_XH_Range);
+            this.groupBox2.Controls.Add(this.combox_XH);
+            this.groupBox2.Controls.Add(this.txt_XH_Range);
+            this.groupBox2.Controls.Add(this.lab_XH);
             this.groupBox2.Location = new System.Drawing.Point(352, 17);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(810, 440);
+            this.groupBox2.Size = new System.Drawing.Size(783, 440);
             this.groupBox2.TabIndex = 5;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "groupBox2";
             // 
-            // label5
+            // lab_XH_p2
             // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(538, 76);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(21, 15);
-            this.label5.TabIndex = 9;
-            this.label5.Text = "p2";
+            this.lab_XH_p2.AutoSize = true;
+            this.lab_XH_p2.Location = new System.Drawing.Point(538, 76);
+            this.lab_XH_p2.Name = "lab_XH_p2";
+            this.lab_XH_p2.Size = new System.Drawing.Size(21, 15);
+            this.lab_XH_p2.TabIndex = 9;
+            this.lab_XH_p2.Text = "p2";
             // 
-            // textBox4
+            // txt_XH_p2
             // 
-            this.textBox4.Location = new System.Drawing.Point(585, 73);
-            this.textBox4.Name = "textBox4";
-            this.textBox4.Size = new System.Drawing.Size(43, 25);
-            this.textBox4.TabIndex = 8;
+            this.txt_XH_p2.Location = new System.Drawing.Point(585, 73);
+            this.txt_XH_p2.Name = "txt_XH_p2";
+            this.txt_XH_p2.Size = new System.Drawing.Size(43, 25);
+            this.txt_XH_p2.TabIndex = 8;
             // 
-            // label4
+            // lab_XH_p1
             // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(420, 76);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(21, 15);
-            this.label4.TabIndex = 7;
-            this.label4.Text = "p1";
+            this.lab_XH_p1.AutoSize = true;
+            this.lab_XH_p1.Location = new System.Drawing.Point(420, 76);
+            this.lab_XH_p1.Name = "lab_XH_p1";
+            this.lab_XH_p1.Size = new System.Drawing.Size(21, 15);
+            this.lab_XH_p1.TabIndex = 7;
+            this.lab_XH_p1.Text = "p1";
             // 
-            // textBox3
+            // txt_XH_p1
             // 
-            this.textBox3.Location = new System.Drawing.Point(467, 73);
-            this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(43, 25);
-            this.textBox3.TabIndex = 6;
+            this.txt_XH_p1.Location = new System.Drawing.Point(467, 73);
+            this.txt_XH_p1.Name = "txt_XH_p1";
+            this.txt_XH_p1.Size = new System.Drawing.Size(43, 25);
+            this.txt_XH_p1.TabIndex = 6;
             // 
-            // label3
+            // lab_XH_Lower
             // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(305, 76);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(44, 15);
-            this.label3.TabIndex = 5;
-            this.label3.Text = "Lower";
+            this.lab_XH_Lower.AutoSize = true;
+            this.lab_XH_Lower.Location = new System.Drawing.Point(305, 76);
+            this.lab_XH_Lower.Name = "lab_XH_Lower";
+            this.lab_XH_Lower.Size = new System.Drawing.Size(44, 15);
+            this.lab_XH_Lower.TabIndex = 5;
+            this.lab_XH_Lower.Text = "Lower";
             // 
-            // textBox2
+            // txt_XH_Lower
             // 
-            this.textBox2.Location = new System.Drawing.Point(352, 73);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(43, 25);
-            this.textBox2.TabIndex = 4;
+            this.txt_XH_Lower.Location = new System.Drawing.Point(352, 73);
+            this.txt_XH_Lower.Name = "txt_XH_Lower";
+            this.txt_XH_Lower.Size = new System.Drawing.Size(43, 25);
+            this.txt_XH_Lower.TabIndex = 4;
             // 
-            // labXHRange
+            // lab_XH_Range
             // 
-            this.labXHRange.AutoSize = true;
-            this.labXHRange.Location = new System.Drawing.Point(193, 76);
-            this.labXHRange.Name = "labXHRange";
-            this.labXHRange.Size = new System.Drawing.Size(42, 15);
-            this.labXHRange.TabIndex = 3;
-            this.labXHRange.Text = "Range";
+            this.lab_XH_Range.AutoSize = true;
+            this.lab_XH_Range.Location = new System.Drawing.Point(193, 76);
+            this.lab_XH_Range.Name = "lab_XH_Range";
+            this.lab_XH_Range.Size = new System.Drawing.Size(42, 15);
+            this.lab_XH_Range.TabIndex = 3;
+            this.lab_XH_Range.Text = "Range";
             // 
-            // comboXH
+            // combox_XH
             // 
-            this.comboXH.FormattingEnabled = true;
-            this.comboXH.Items.AddRange(new object[] {
+            this.combox_XH.FormattingEnabled = true;
+            this.combox_XH.Items.AddRange(new object[] {
             "ramp",
             "tri",
             "pulse",
             "step"});
-            this.comboXH.Location = new System.Drawing.Point(96, 73);
-            this.comboXH.Name = "comboXH";
-            this.comboXH.Size = new System.Drawing.Size(62, 23);
-            this.comboXH.TabIndex = 2;
+            this.combox_XH.Location = new System.Drawing.Point(96, 73);
+            this.combox_XH.Name = "combox_XH";
+            this.combox_XH.Size = new System.Drawing.Size(62, 23);
+            this.combox_XH.TabIndex = 2;
             // 
-            // textBox1
+            // txt_XH_Range
             // 
-            this.textBox1.Location = new System.Drawing.Point(240, 73);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(43, 25);
-            this.textBox1.TabIndex = 1;
+            this.txt_XH_Range.Location = new System.Drawing.Point(240, 73);
+            this.txt_XH_Range.Name = "txt_XH_Range";
+            this.txt_XH_Range.Size = new System.Drawing.Size(43, 25);
+            this.txt_XH_Range.TabIndex = 1;
             // 
-            // labXH
+            // lab_XH
             // 
-            this.labXH.AutoSize = true;
-            this.labXH.Location = new System.Drawing.Point(19, 76);
-            this.labXH.Name = "labXH";
-            this.labXH.Size = new System.Drawing.Size(27, 15);
-            this.labXH.TabIndex = 0;
-            this.labXH.Text = "XH";
+            this.lab_XH.AutoSize = true;
+            this.lab_XH.Location = new System.Drawing.Point(19, 76);
+            this.lab_XH.Name = "lab_XH";
+            this.lab_XH.Size = new System.Drawing.Size(27, 15);
+            this.lab_XH.TabIndex = 0;
+            this.lab_XH.Text = "XH";
             // 
             // groupBox1
             // 
@@ -271,6 +271,12 @@
             // 
             this.listBox1.FormattingEnabled = true;
             this.listBox1.ItemHeight = 15;
+            this.listBox1.Items.AddRange(new object[] {
+            "1",
+            "2",
+            "3",
+            "4",
+            "5"});
             this.listBox1.Location = new System.Drawing.Point(15, 24);
             this.listBox1.Name = "listBox1";
             this.listBox1.Size = new System.Drawing.Size(292, 409);
@@ -366,16 +372,16 @@
         private System.Windows.Forms.Button playPauseButton;
         private System.Windows.Forms.Label timeLabel;
         private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.Label labXH;
-        private System.Windows.Forms.ComboBox comboXH;
-        private System.Windows.Forms.Label labXHRange;
-        private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.TextBox textBox4;
-        private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.TextBox textBox3;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.TextBox txt_XH_Range;
+        private System.Windows.Forms.Label lab_XH;
+        private System.Windows.Forms.ComboBox combox_XH;
+        private System.Windows.Forms.Label lab_XH_Range;
+        private System.Windows.Forms.Label lab_XH_p2;
+        private System.Windows.Forms.TextBox txt_XH_p2;
+        private System.Windows.Forms.Label lab_XH_p1;
+        private System.Windows.Forms.TextBox txt_XH_p1;
+        private System.Windows.Forms.Label lab_XH_Lower;
+        private System.Windows.Forms.TextBox txt_XH_Lower;
         private System.Windows.Forms.ListBox listBox1;
     }
 }

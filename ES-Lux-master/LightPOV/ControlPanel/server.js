@@ -6,7 +6,7 @@ const port = 10240;
 var light_state = [0, 0, 0]
 var light_effect = [0, 0, 0]
 var EXE_MODE = 0 //0 auto 1 manual
-var SONG = "FormozaWorldNow.json"
+var SONG = "OnMyOwn.json"
 var Time = 0;
 
 let EffectMapData = fs.readFileSync("public/"+ SONG);
@@ -75,16 +75,16 @@ function stringify(content) {
 app.use(express.static(__dirname + '/public'));
 
 app.get("/get_effect", (req, res) => {
-    console.log(EffectMap[0].mode);
     var ID = req.query.id;
     if (ID >= Object.keys(EffectMap).length) {
         res.send("ERROR!!")
     }
     else {
         res.send(stringify(EffectMap[ID]))
+        console.log(EffectMap[ID].mode);
+        console.log(ID);
     }
 
-    console.log(ID);
     // res.send(EffectMap);
 })
 

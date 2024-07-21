@@ -1,8 +1,8 @@
 #ifndef CONFIG_H
 #define CONFIG_H
 #include <Arduino.h>
-#define DEBUGGER
-#define DEBUGGER_TASK_REPORT
+// #define DEBUGGER
+// #define DEBUGGER_TASK_REPORT
 
 #define LUX_ID 0
 

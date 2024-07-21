@@ -6,7 +6,7 @@
 #include "config.h"
 #include "bitmaps.h"
 #include "core.h"
-#include "acc.h"
+// #include "acc.h"
 
 
 class ColorScheduler{
@@ -62,7 +62,7 @@ private:
     uint16_t time_idx;      // Effect X direction index
     ColorScheduler sch;
 
-    RotationDetector detector;
+    //RotationDetector detector;
     CRGB pixels[NUMPIXELS];
 
     time_t effect_entry_time;   // The time 
@@ -127,6 +127,8 @@ public:
     void bitmapEsZh(Mode* m);
 
     void colormapDna(Mode* m);
+
+    void colormapFire(Mode* m);
 
     void colormapBenson(Mode* m);
 

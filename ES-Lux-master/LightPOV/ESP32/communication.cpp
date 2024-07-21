@@ -130,6 +130,7 @@ void Communication::feed_color_param(ValueParam* p, String s){
 int Communication::feed_data(Mode* m, String s){
     int start=0, len=0;
     uint32_t checksum = 0;
+    if(s != "ERROR!!")
     Serial.println(s);
     for (int i=0; i<s.length(); i++){
         // If the first charactor is not `M`, return as error
@@ -198,13 +199,13 @@ bool Communication::receive(Mode* m, int current_id){
     if (WiFi.status() == WL_CONNECTED){
         /* Request data from server */
         String url ="http://" + WiFi.gatewayIP().toString() + String(WIFI_REQUEST_URL) + "?id=" + current_id;
-        Serial.println(url);
+        //Serial.println(url);
         http.begin(url);
         int httpCode = http.GET();
         String web_data = http.getString();
 
-        Serial.print("\n\nnumber: ");
-        Serial.println(current_id);
+        //Serial.print("\n\nnumber: ");
+        //Serial.println(current_id);
         if (feed_data(m, web_data) != 0){
             // Message error, Report it
             return false;
@@ -213,6 +214,7 @@ bool Communication::receive(Mode* m, int current_id){
         #ifdef DEBUGGER_TASK_REPORT
         PrintMode(m);
         #endif
+        PrintMode(m);
     }
     else WifiErrorHandle();
     return true;
@@ -222,7 +224,7 @@ time_t Communication::check_start_time(uint8_t id, MODES mode, uint8_t* force_st
     if (WiFi.status() == WL_CONNECTED){
         /* Request data from server */
         String url ="http://" + WiFi.gatewayIP().toString() +  String(WIFI_TIME_CHECK_URL) + "?id=" + id + "&effect=" + mode;
-        Serial.println(url);
+        //Serial.println(url);
         http.begin(url);
         int httpCode = http.GET();
         String web_data = http.getString();

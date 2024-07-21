@@ -66,7 +66,7 @@ function stat_update() {
         $.get("/get_stat?id=" + dd).success(function (data) {
             var id = "#" + (dd + 1).toString() + "-state"
             var now = new Date();
-            if (now - data < 5000) {
+            if (now - data < 1000) {
                 $(id).html("已連線")
                 id = "#" + (dd + 1).toString() + "-last"
                 $(id).html("")
@@ -127,7 +127,7 @@ function getEnumKey(enum_dict, id) {
     return Object.keys(enum_dict)[id]
 }
 function create_effect_table() {
-    $.getJSON("FormozaWorldNow.json", function (data) {
+    $.getJSON("OnMyOwn.json", function (data) {
         //$.getJSON("FormozaWorldNow.json", function (data) {
         //console.log(data)
         var len = Object.keys(data).length

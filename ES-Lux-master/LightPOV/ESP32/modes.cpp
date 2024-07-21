@@ -150,8 +150,10 @@ Effects::Effects():buffer(sizeof(Mode), QUEUE_SIZE, FIFO),
 }
 
 int16_t Effects::checkBufferAvailable(){
-    Serial.print("Capacity: ");
-    Serial.println(buffer.getCount());
+    #ifdef DEBUGGER
+      Serial.print("Capacity: ");
+      Serial.println(buffer.getCount());
+    #endif
     if (buffer.isFull()) return -1;
     return effect_id;     // Request for next effect
 }
@@ -215,16 +217,16 @@ void Effects::perform(){
 /* Block until pass through start position */
 void Effects::blockUntilStart(time_t start, uint16_t timeout){
     time_t start_time = millis();
-    while( detector.read_flag() != Rotation_SET && (millis()-start_time < timeout)) 
-        ;
-    detector.clear_flag();
+    // while( detector.read_flag() != Rotation_SET && (millis()-start_time < timeout)) 
+    //     ;
+    // detector.clear_flag();
 }
 
 bool inline Effects::detectPassStart(time_t start){
-    if ( detector.read_flag() ){
-        detector.clear_flag();
-        return true;
-    }
+    // if ( detector.read_flag() ){
+    //     detector.clear_flag();
+    //     return true;
+    // }
     return false;
 }
 
@@ -249,7 +251,7 @@ uint16_t Effects::getIdx(){
 
 /* Check whether to stop */
 bool Effects::checkDuration(Mode* m){
-    Serial.println(getMusicTime());
+    //Serial.println(getMusicTime());
     return millis() - effect_entry_time < m->duration/*
     || getMusicTime() > m->start_time + m->duration*/;
     /* ||
@@ -440,6 +442,11 @@ void Effects::colormap(Mode* m, const uint16_t (*map)[NUMPIXELS], int length){
 void Effects::colormapDna(Mode* m){
     uint8_t reverse = m->param[0];
     colormap(m, BITMAP_DNA, BITMAP_SIZE_DNA);
+}
+
+void Effects::colormapFire(Mode* m){
+    uint8_t reverse = m->param[0];
+    colormap(m, FIRE, 32);
 }
 
 void Effects::colormapBenson(Mode* m){
