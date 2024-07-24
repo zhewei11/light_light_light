@@ -67,39 +67,24 @@ void Communication::OTA()
 void Communication::connect(){
     int n = WiFi.scanNetworks();
     for (int i = 0; i < n; ++i){
-        if (WiFi.SSID(i) == WIFI_SSID1){
-            WiFi.begin(WIFI_SSID1, WIFI_PASS1); //trying to connect the modem
+        String ssid = WiFi.SSID(i);
+        if (ssid == WIFI_SSID1 || ssid == WIFI_SSID2 || ssid == WIFI_SSID3){
+            String pass = (ssid == WIFI_SSID1) ? WIFI_PASS1 : (ssid == WIFI_SSID2) ? WIFI_PASS2 : WIFI_PASS3;
+            WiFi.begin(ssid.c_str(), pass.c_str());
             Serial.println();
-            Serial.print("Connected to ");
-            Serial.println(WIFI_SSID1);
-            break;
-        }
-        if (WiFi.SSID(i) == WIFI_SSID2){
-            WiFi.begin(WIFI_SSID2, WIFI_PASS2); //trying to connect the modem
-            Serial.println();
-            Serial.print("Connected to ");
-            Serial.println(WIFI_SSID2);
-            break;
-        }
-        if (WiFi.SSID(i) == WIFI_SSID3){
-            WiFi.begin(WIFI_SSID3, WIFI_PASS3); //trying to connect the modem
-            Serial.println();
-            Serial.print("Connected to ");
-            Serial.println(WIFI_SSID3);
+            Serial.print("Connecting to ");
+            Serial.println(ssid);
             break;
         }
     }
 
     Serial.print("Waiting for connection");
-    // Wait for connection
     int connection_times = 0;
-    while (WiFi.status() != WL_CONNECTED)
-    {
+    while (WiFi.status() != WL_CONNECTED){
         vTaskDelay(pdMS_TO_TICKS(500));
         Serial.print(".");
         connection_times++;
-        if (connection_times >= WIFI_CONNECT_RETRY)
-        {
+        if (connection_times >= WIFI_CONNECT_RETRY){
             Serial.println();
             Serial.println("Connection Failed! Rebooting...");
             vTaskDelay(pdMS_TO_TICKS(1000));
@@ -108,8 +93,6 @@ void Communication::connect(){
     }
 
     Serial.println("");
-    /*Serial.print("Connected to ");
-    Serial.println(ssid);*/
     Serial.print("IP address: ");
     Serial.println(WiFi.localIP());
     Serial.println(WiFi.gatewayIP());
@@ -198,7 +181,7 @@ int Communication::feed_data(Mode* m, String s){
 bool Communication::receive(Mode* m, int current_id){
     if (WiFi.status() == WL_CONNECTED){
         /* Request data from server */
-        String url ="http://" + WiFi.gatewayIP().toString() + String(WIFI_REQUEST_URL) + "?id=" + current_id;
+        String url ="http://" + WiFi.gatewayIP().toString() + String(WIFI_REQUEST_URL) + "?id=" + current_id + "&luxid=" + LUX_ID;
         //Serial.println(url);
         http.begin(url);
         int httpCode = http.GET();
@@ -239,13 +222,34 @@ time_t Communication::check_start_time(uint8_t id, MODES mode, uint8_t* force_st
     return 0;
 }
 
-void Communication::WifiErrorHandle(){
+void Communication::WifiErrorHandle() {
     #ifdef DEBUGGER
-    Serial.println("Connection Failed! Rebooting...");
+    Serial.println("Connection Failed! Retrying...");
     #endif
-    vTaskDelay(pdMS_TO_TICKS(1000));
-    ESP.restart();
+    
+    // 重试连接WiFi
+    int retryCount = 0;
+    while (WiFi.status() != WL_CONNECTED && retryCount < WIFI_CONNECT_RETRY) {
+        WiFi.disconnect();
+        vTaskDelay(pdMS_TO_TICKS(1000)); // 等待1秒再重试
+        WiFi.begin(WIFI_SSID1, WIFI_PASS1);
+        Serial.print("Retrying connection");
+        while (WiFi.status() != WL_CONNECTED && retryCount < WIFI_CONNECT_RETRY) {
+            vTaskDelay(pdMS_TO_TICKS(500)); // 每0.5秒检查一次连接状态
+            Serial.print(".");
+            retryCount++;
+        }
+    }
+    
+    if (WiFi.status() == WL_CONNECTED) {
+        Serial.println();
+        Serial.println("Reconnected successfully!");
+    } else {
+        Serial.println();
+        Serial.println("Reconnection Failed! Please check your network settings.");
+    }
 }
+
 
 void Communication::updateOTA(){
     ArduinoOTA.handle();

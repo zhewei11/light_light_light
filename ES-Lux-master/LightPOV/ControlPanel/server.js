@@ -1,12 +1,13 @@
+const NUM_OF_LUX = 4
 const express = require('express');
 const fs = require('fs');
 var formidable = require('formidable');
 const app = express();
 const port = 10240;
-var light_state = [0, 0, 0]
-var light_effect = [0, 0, 0]
+var light_state = [0, 0, 0, 0]
+var light_effect = [0, 0, 0, 0]
 var EXE_MODE = 0 //0 auto 1 manual
-var SONG = "OnMyOwn.json"
+var SONG = "testArray.json"
 var Time = 0;
 
 let EffectMapData = fs.readFileSync("public/"+ SONG);
@@ -76,12 +77,13 @@ app.use(express.static(__dirname + '/public'));
 
 app.get("/get_effect", (req, res) => {
     var ID = req.query.id;
-    if (ID >= Object.keys(EffectMap).length) {
+    var LUX_ID = req.query.luxid;
+    if (ID >= Object.keys(EffectMap).length || LUX_ID >= NUM_OF_LUX) {
         res.send("ERROR!!")
     }
     else {
-        res.send(stringify(EffectMap[ID]))
-        console.log(EffectMap[ID].mode);
+        res.send(stringify(EffectMap[LUX_ID][ID]))
+        console.log(EffectMap[LUX_ID][ID].mode);
         console.log(ID);
     }
 

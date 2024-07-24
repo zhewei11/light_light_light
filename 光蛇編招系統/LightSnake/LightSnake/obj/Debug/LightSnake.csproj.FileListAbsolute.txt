@@ -29,3 +29,5 @@ D:\light_light_light\光蛇編招系統\LightSnake\LightSnake\obj\Debug\LightSna
 D:\light_light_light\光蛇編招系統\LightSnake\LightSnake\obj\Debug\LightSnake.csproj.CopyComplete
 D:\light_light_light\光蛇編招系統\LightSnake\LightSnake\obj\Debug\LightSnake.exe
 D:\light_light_light\光蛇編招系統\LightSnake\LightSnake\obj\Debug\LightSnake.pdb
+D:\light_light_light\光蛇編招系統\LightSnake\LightSnake\bin\Debug\Newtonsoft.Json.dll
+D:\light_light_light\光蛇編招系統\LightSnake\LightSnake\bin\Debug\Newtonsoft.Json.xml

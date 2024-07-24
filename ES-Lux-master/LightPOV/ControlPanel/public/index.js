@@ -1,7 +1,6 @@
-const NUM_OF_LUX = 3
-//const ENUM = { "EFFECT_ES1": 0, "EFFECT_ES2": 1 };
-//const ENUM = { "MODES_SQUARE": 0, "MODES_SICKLE": 1, "MODES_FAN": 2 }
+const NUM_OF_LUX = 4
 var NUM_OF_EFFECT
+var MODEDATA = "testArray.json"
 
 $(document).ready(function () {
     table_append()
@@ -127,93 +126,108 @@ function getEnumKey(enum_dict, id) {
     return Object.keys(enum_dict)[id]
 }
 function create_effect_table() {
-    $.getJSON("OnMyOwn.json", function (data) {
-        //$.getJSON("FormozaWorldNow.json", function (data) {
-        //console.log(data)
-        var len = Object.keys(data).length
-        NUM_OF_EFFECT = len
-        //console.log(len)
+    $.getJSON(MODEDATA, function (data) {
+        var len = Object.keys(data[0]).length;
+        NUM_OF_EFFECT = len;
         var $myTable = $('#table3');
-        for (var i = 0; i < len; i++) {
-            var rowElements = function (row) {
-                var $row = $('<tr class="tr3"></tr>');
 
-                //var n = (i + 1).toString();
-                var n = i.toString();
-                var ID = '<td class="td3" id="effect-' + n + '"></td>'
-                var $col_1 = $(ID).html(n);
-                var $col_2 = $('<td class="td3"></td>').html(data[i].mode.substring(6))
-                var time = '<td class="td3" id="effect-time-' + n + '"></td>'
-                var $col_3 = $(time).html(data[i].start_time)
-                var $col_4 = $('<td class="td3"></td>').html(data[i].duration)
-                var $col_5 = $('<td class="td3"></td>').html(getEnumKey(ENUM_FUNC, data[i].XH.func).substring(4));
-                var $col_6 = $('<td class="td3"></td>').html(data[i].XH.range);
-                var $col_7 = $('<td class="td3"></td>').html(data[i].XH.lower);
-                var $col_8 = $('<td class="td3"></td>').html(data[i].XH.p1);
-                var $col_9 = $('<td class="td3"></td>').html(data[i].XH.p2);
-                var $col_10 = $('<td class="td3"></td>').html(getEnumKey(ENUM_FUNC, data[i].XS.func).substring(4));
-                var $col_11 = $('<td class="td3"></td>').html(data[i].XS.range);
-                var $col_12 = $('<td class="td3"></td>').html(data[i].XS.lower);
-                var $col_13 = $('<td class="td3"></td>').html(data[i].XS.p1);
-                var $col_14 = $('<td class="td3"></td>').html(data[i].XS.p2);
-                var $col_15 = $('<td class="td3"></td>').html(getEnumKey(ENUM_FUNC, data[i].XV.func).substring(4));
-                var $col_16 = $('<td class="td3"></td>').html(data[i].XV.range);
-                var $col_17 = $('<td class="td3"></td>').html(data[i].XV.lower);
-                var $col_18 = $('<td class="td3"></td>').html(data[i].XV.p1);
-                var $col_19 = $('<td class="td3"></td>').html(data[i].XV.p2);
-                var $col_20 = $('<td class="td3"></td>').html(getEnumKey(ENUM_FUNC, data[i].YH.func).substring(4));
-                var $col_21 = $('<td class="td3"></td>').html(data[i].YH.range);
-                var $col_22 = $('<td class="td3"></td>').html(data[i].YH.lower);
-                var $col_23 = $('<td class="td3"></td>').html(data[i].YH.p1);
-                var $col_24 = $('<td class="td3"></td>').html(data[i].YH.p2);
-                var $col_25 = $('<td class="td3"></td>').html(getEnumKey(ENUM_FUNC, data[i].YS.func).substring(4));
-                var $col_26 = $('<td class="td3"></td>').html(data[i].YS.range);
-                var $col_27 = $('<td class="td3"></td>').html(data[i].YS.lower);
-                var $col_28 = $('<td class="td3"></td>').html(data[i].YS.p1);
-                var $col_29 = $('<td class="td3"></td>').html(data[i].YS.p2);
-                var $col_30 = $('<td class="td3"></td>').html(getEnumKey(ENUM_FUNC, data[i].YV.func).substring(4));
-                var $col_31 = $('<td class="td3"></td>').html(data[i].YV.range);
-                var $col_32 = $('<td class="td3"></td>').html(data[i].YV.lower);
-                var $col_33 = $('<td class="td3"></td>').html(data[i].YV.p1);
-                var $col_34 = $('<td class="td3"></td>').html(data[i].YV.p2);
-                var $col_35 = $('<td class="td3"></td>').html(data[i].p1);
-                var $col_36 = $('<td class="td3"></td>').html(data[i].p2);
-                var $col_37 = $('<td class="td3"></td>').html(data[i].p3);
-                var $col_38 = $('<td class="td3"></td>').html(data[i].p4);
+        for (let NO = 0; NO < NUM_OF_LUX; NO++) {
+            var $noHeaderRow = $('<tr class="tr3 no-header"></tr>');
+            var $noHeaderCol = $('<td class="td3" colspan="38"></td>').html(NO);
+            $noHeaderRow.append($noHeaderCol);
+            $myTable.append($noHeaderRow);
 
-                // Add the columns to the row
-                $row.append($col_1, $col_2, $col_3, $col_4, $col_5, $col_6, $col_7, $col_8, $col_9, $col_10);
-                $row.append($col_11, $col_12, $col_13, $col_14, $col_15, $col_16, $col_17, $col_18, $col_19, $col_20);
-                $row.append($col_21, $col_22, $col_23, $col_24, $col_25, $col_26, $col_27, $col_28, $col_29, $col_30);
-                $row.append($col_31, $col_32, $col_33, $col_34, $col_35, $col_36, $col_37, $col_38);
+            for (var i = 0; i < len; i++) {
+                if (data[NO] && data[NO][i]) {
+                    var rowElements = function () {
+                        var $row = $('<tr class="tr3"></tr>');
 
-                // Add to the newly-generated array
-                return $row;
-            };
+                        var n = i.toString();
+                        var ID = '<td class="td3" id="effect-' + NO.toString() + "-" + n + '"></td>';
+                        var $col_1 = $(ID).html(n);
+                        var $col_2 = $('<td class="td3"></td>').html(data[NO][i].mode.substring(6));
+                        var time = '<td class="td3" id="effect-time-' + NO.toString() + "-" + n + '"></td>';
+                        var $col_3 = $(time).html(data[NO][i].start_time);
+                        var $col_4 = $('<td class="td3"></td>').html(data[NO][i].duration);
+                        var $col_5 = $('<td class="td3"></td>').html(getEnumKey(ENUM_FUNC, data[NO][i].XH.func).substring(4));
+                        var $col_6 = $('<td class="td3"></td>').html(data[NO][i].XH.range);
+                        var $col_7 = $('<td class="td3"></td>').html(data[NO][i].XH.lower);
+                        var $col_8 = $('<td class="td3"></td>').html(data[NO][i].XH.p1);
+                        var $col_9 = $('<td class="td3"></td>').html(data[NO][i].XH.p2);
+                        var $col_10 = $('<td class="td3"></td>').html(getEnumKey(ENUM_FUNC, data[NO][i].XS.func).substring(4));
+                        var $col_11 = $('<td class="td3"></td>').html(data[NO][i].XS.range);
+                        var $col_12 = $('<td class="td3"></td>').html(data[NO][i].XS.lower);
+                        var $col_13 = $('<td class="td3"></td>').html(data[NO][i].XS.p1);
+                        var $col_14 = $('<td class="td3"></td>').html(data[NO][i].XS.p2);
+                        var $col_15 = $('<td class="td3"></td>').html(getEnumKey(ENUM_FUNC, data[NO][i].XV.func).substring(4));
+                        var $col_16 = $('<td class="td3"></td>').html(data[NO][i].XV.range);
+                        var $col_17 = $('<td class="td3"></td>').html(data[NO][i].XV.lower);
+                        var $col_18 = $('<td class="td3"></td>').html(data[NO][i].XV.p1);
+                        var $col_19 = $('<td class="td3"></td>').html(data[NO][i].XV.p2);
+                        var $col_20 = $('<td class="td3"></td>').html(getEnumKey(ENUM_FUNC, data[NO][i].YH.func).substring(4));
+                        var $col_21 = $('<td class="td3"></td>').html(data[NO][i].YH.range);
+                        var $col_22 = $('<td class="td3"></td>').html(data[NO][i].YH.lower);
+                        var $col_23 = $('<td class="td3"></td>').html(data[NO][i].YH.p1);
+                        var $col_24 = $('<td class="td3"></td>').html(data[NO][i].YH.p2);
+                        var $col_25 = $('<td class="td3"></td>').html(getEnumKey(ENUM_FUNC, data[NO][i].YS.func).substring(4));
+                        var $col_26 = $('<td class="td3"></td>').html(data[NO][i].YS.range);
+                        var $col_27 = $('<td class="td3"></td>').html(data[NO][i].YS.lower);
+                        var $col_28 = $('<td class="td3"></td>').html(data[NO][i].YS.p1);
+                        var $col_29 = $('<td class="td3"></td>').html(data[NO][i].YS.p2);
+                        var $col_30 = $('<td class="td3"></td>').html(getEnumKey(ENUM_FUNC, data[NO][i].YV.func).substring(4));
+                        var $col_31 = $('<td class="td3"></td>').html(data[NO][i].YV.range);
+                        var $col_32 = $('<td class="td3"></td>').html(data[NO][i].YV.lower);
+                        var $col_33 = $('<td class="td3"></td>').html(data[NO][i].YV.p1);
+                        var $col_34 = $('<td class="td3"></td>').html(data[NO][i].YV.p2);
+                        var $col_35 = $('<td class="td3"></td>').html(data[NO][i].p1);
+                        var $col_36 = $('<td class="td3"></td>').html(data[NO][i].p2);
+                        var $col_37 = $('<td class="td3"></td>').html(data[NO][i].p3);
+                        var $col_38 = $('<td class="td3"></td>').html(data[NO][i].p4);
 
-            $myTable.append(rowElements);
+                        // Add the columns to the row
+                        $row.append($col_1, $col_2, $col_3, $col_4, $col_5, $col_6, $col_7, $col_8, $col_9, $col_10);
+                        $row.append($col_11, $col_12, $col_13, $col_14, $col_15, $col_16, $col_17, $col_18, $col_19, $col_20);
+                        $row.append($col_21, $col_22, $col_23, $col_24, $col_25, $col_26, $col_27, $col_28, $col_29, $col_30);
+                        $row.append($col_31, $col_32, $col_33, $col_34, $col_35, $col_36, $col_37, $col_38);
+
+                        // Add to the newly-generated array
+                        return $row;
+                    };
+
+                    $myTable.append(rowElements());
+                } else {
+                    console.error("Data not found for NO: " + NO + ", i: " + i);
+                }
+            }
         }
-    });
 
+    }).fail(function (jqxhr, textStatus, error) {
+        console.error("Request Failed: " + textStatus + ", " + error);
+    });
 }
+
+
 var music_id = document.getElementById("music")
 document.getElementById("music").ontimeupdate = function () {
     $.get("/start?time=" + music_id.currentTime.toFixed(3) * 1000);
     $('#music-time').html(music_id.currentTime.toFixed(2))
-    for (var i = 0; i < NUM_OF_EFFECT - 1; i++) {
-        var time1 = "#effect-time-" + i.toString()
-        var time2 = "#effect-time-" + (i + 1).toString()
-        var value1 = parseInt($(time1).text())
-        var value2 = parseInt($(time2).text())
-        var ID = "#effect-" + i
-        if (value1 < (music_id.currentTime.toFixed(3) * 1000) && (value2 > (music_id.currentTime.toFixed(3) * 1000))) {
-            $(ID).css("background-color", "red")
+    for (let index = 0; index < NUM_OF_LUX; index++) {
+        for (var i = 0; i < NUM_OF_EFFECT - 1; i++) {
+            var time1 = "#effect-time-" + index.toString() + "-" + i.toString()
+            var time2 = "#effect-time-" + index.toString() + "-" + (i + 1).toString()
+            var value1 = parseInt($(time1).text())
+            var value2 = parseInt($(time2).text())
+            var ID = "#effect-" + index.toString() + "-" + i
+            if (value1 < (music_id.currentTime.toFixed(3) * 1000) && (value2 > (music_id.currentTime.toFixed(3) * 1000))) {
+                $(ID).css("background-color", "red")
+            }
+            else (
+                $(ID).css("background-color", "white")
+            )
         }
-        else (
-            $(ID).css("background-color", "white")
-        )
+        
     }
-
+    
 }
 
 document.getElementById("music-play").onclick = function () { //音樂播放按鈕

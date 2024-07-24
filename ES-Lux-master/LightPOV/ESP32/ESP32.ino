@@ -8,6 +8,7 @@ TaskHandle_t WIFI_HANDLE;
 
 Effects effect = Effects();
 Communication comm = Communication();
+
 void setup(){
     Serial.begin(115200);
     Serial.println("Start up");
@@ -22,7 +23,7 @@ void setup(){
         1,
         &WIFI_HANDLE,
         0);
-        vTaskDelay(pdMS_TO_TICKS(100));
+    vTaskDelay(pdMS_TO_TICKS(100));
     
     xTaskCreatePinnedToCore(
         LED_UPDATE_CODE, // Function to implement the task
@@ -37,24 +38,7 @@ void setup(){
 
 void LED_UPDATE_CODE(void *pvParameters)
 {
-    
-    // ValueParam p1 = (ValueParam){.func=FuncRamp, .range=100, .lower=0, .p1=250, .p2=0};
-    // ValueParam p2 = (ValueParam){.func=FuncConst, .range=1, .lower=0, .p1=100, .p2=0};
-    // ValueParam p3 = (ValueParam){.func=FuncConst, .range=1, .lower=0, .p1=0, .p2=0};
-    // ValueParam p4 = (ValueParam){.func=FuncConst, .range=1, .lower=0, .p1=255, .p2=0};
-    // ValueParam p5 = (ValueParam){.func=FuncTri, .range=100, .lower=0, .p1=100, .p2=0};
-    // ValueParam p6 = (ValueParam){.func=FuncPulse, .range=100, .lower=0, .p1=5, .p2=0};
-    // Mode m;
-    // m.XH = p1;
-    // m.XS = p4;
-    // m.XV = p2;
-    // m.YH = p3;
-    // m.YS = p3;
-    // m.YV = p3;
-    // m.param[0] = 1;
-    // m.param[1] = 10;
     while (1){
-        // effect.square(&m); // liar
         effect.perform();
     }
 }
@@ -90,7 +74,13 @@ void WIFI_HANDLE_CODE(void *pvParameters)
 
 void loop()
 {
-    // Serial.println("Start up");
     comm.updateOTA();
     // effect.update();
+
+    // Check WiFi connection status periodically
+    if (WiFi.status() != WL_CONNECTED) {
+        Serial.println("WiFi disconnected, trying to reconnect...");
+        comm.WifiErrorHandle(); // Attempt to reconnect WiFi
+    }
+    vTaskDelay(pdMS_TO_TICKS(1000)); // Add a delay to avoid spamming the reconnection attempts
 }
