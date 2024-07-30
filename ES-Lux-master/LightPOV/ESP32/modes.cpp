@@ -283,10 +283,6 @@ void Effects::plain(Mode* m){
     }
 }
 
-/*
- * p3: boxsize
- * p4: space
- */
 void Effects::square(Mode* m){
     Serial.println("Square");
     uint8_t boxsize = m->param[2];
@@ -362,7 +358,6 @@ void Effects::sickle(Mode* m){
 
 void Effects::fan(Mode* m){
     Serial.println("Sickle");
-    uint8_t times = m->param[1];
     uint8_t width = m->param[0];
     uint8_t density = m->param[2];
     uint8_t thickness = m->param[3];
