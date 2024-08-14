@@ -19,7 +19,7 @@ void setup() {
     WiFi.begin(ssid, password);
     
     // while (WiFi.waitForConnectResult() != WL_CONNECTED) {
-        Serial.println("Connection Failed! Rebooting...");
+        //Serial.println("Connection Failed! Rebooting...");
         //delay(5000);
         //ESP.restart();
     // }

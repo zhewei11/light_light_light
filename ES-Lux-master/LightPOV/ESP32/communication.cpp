@@ -211,7 +211,9 @@ time_t Communication::check_start_time(uint8_t id, MODES mode, uint8_t* force_st
         http.begin(url);
         int httpCode = http.GET();
         String web_data = http.getString();
-        if (web_data[0] == 'A')
+        if (web_data[0] == 'C')
+            *force_start = 2;
+        else if (web_data[0] == 'A')
             *force_start = 0;
         else
             *force_start = 1; 

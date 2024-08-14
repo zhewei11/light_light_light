@@ -93,6 +93,10 @@ public:
 
     void feedNewEffect(Mode* m);
 
+    void lightOnOneLED(CRGB l);
+
+    void lightOnOneLED(CRGB l, int num);
+
     /* Perform LED show if there has any task available */
     void perform();
 
@@ -137,6 +141,8 @@ public:
     void colormapLove(Mode* m);
 
     void colormapGear(Mode* m);
+
+    void bitmapESXOPT(Mode* m);
 };
 
 #endif

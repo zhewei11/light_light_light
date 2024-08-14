@@ -12,7 +12,8 @@ Communication comm = Communication();
 void setup(){
     Serial.begin(115200);
     Serial.println("Start up");
-
+    effect.lightOnOneLED(CHSV(0, 200, 50), LUX_ID + 1);
+    delay(3000);
     comm.init();
 
     xTaskCreatePinnedToCore(

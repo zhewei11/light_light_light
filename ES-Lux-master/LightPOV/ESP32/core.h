@@ -24,7 +24,8 @@ enum MODES{
     MODES_CMAP_BENSON,
     MODES_CMAP_YEN,
     MODES_CMAP_LOVE,
-    MODES_CMAP_GEAR};
+    MODES_CMAP_GEAR,
+    MODES_MAP_ESXOPT};
 
 enum SchedulerFunc{
     FuncNone, 

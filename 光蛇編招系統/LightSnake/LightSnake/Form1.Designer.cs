@@ -38,8 +38,11 @@
             this.CopyKeyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.PasteKeyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.DeleteKeyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.CutKeyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.panel1 = new System.Windows.Forms.Panel();
+            this.btn_color = new System.Windows.Forms.Button();
+            this.lab_color = new System.Windows.Forms.Label();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.txt_p4 = new System.Windows.Forms.TextBox();
             this.lab_p4 = new System.Windows.Forms.Label();
@@ -119,6 +122,8 @@
             this.playPauseButton = new System.Windows.Forms.Button();
             this.timeLabel = new System.Windows.Forms.Label();
             this.btn_creat_key = new System.Windows.Forms.Button();
+            this.btn_restart = new System.Windows.Forms.Button();
+            this.SaveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.panel1.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -135,7 +140,7 @@
             this.編輯ToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(1924, 27);
+            this.menuStrip1.Size = new System.Drawing.Size(1924, 28);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -144,17 +149,18 @@
             this.檔案ToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.LoadAudioMenuItem,
             this.LoadFile_ToolStripMenuItem,
-            this.Export_ToolStripMenuItem});
+            this.Export_ToolStripMenuItem,
+            this.SaveToolStripMenuItem});
             this.檔案ToolStripMenuItem.Font = new System.Drawing.Font("微軟正黑體", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.檔案ToolStripMenuItem.Name = "檔案ToolStripMenuItem";
-            this.檔案ToolStripMenuItem.Size = new System.Drawing.Size(53, 23);
+            this.檔案ToolStripMenuItem.Size = new System.Drawing.Size(53, 24);
             this.檔案ToolStripMenuItem.Text = "檔案";
             // 
             // LoadAudioMenuItem
             // 
             this.LoadAudioMenuItem.Font = new System.Drawing.Font("微軟正黑體", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.LoadAudioMenuItem.Name = "LoadAudioMenuItem";
-            this.LoadAudioMenuItem.Size = new System.Drawing.Size(167, 26);
+            this.LoadAudioMenuItem.Size = new System.Drawing.Size(224, 26);
             this.LoadAudioMenuItem.Text = "載入音樂";
             this.LoadAudioMenuItem.Click += new System.EventHandler(this.LoadAudioMenuItem_Click);
             // 
@@ -162,7 +168,7 @@
             // 
             this.LoadFile_ToolStripMenuItem.Font = new System.Drawing.Font("微軟正黑體", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.LoadFile_ToolStripMenuItem.Name = "LoadFile_ToolStripMenuItem";
-            this.LoadFile_ToolStripMenuItem.Size = new System.Drawing.Size(167, 26);
+            this.LoadFile_ToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
             this.LoadFile_ToolStripMenuItem.Text = "讀入模式檔";
             this.LoadFile_ToolStripMenuItem.Click += new System.EventHandler(this.LoadFile_ToolStripMenuItem_Click);
             // 
@@ -170,7 +176,7 @@
             // 
             this.Export_ToolStripMenuItem.Font = new System.Drawing.Font("微軟正黑體", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.Export_ToolStripMenuItem.Name = "Export_ToolStripMenuItem";
-            this.Export_ToolStripMenuItem.Size = new System.Drawing.Size(167, 26);
+            this.Export_ToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
             this.Export_ToolStripMenuItem.Text = "匯出模式檔";
             this.Export_ToolStripMenuItem.Click += new System.EventHandler(this.Export_ToolStripMenuItem_Click);
             // 
@@ -179,10 +185,11 @@
             this.編輯ToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.CopyKeyToolStripMenuItem,
             this.PasteKeyToolStripMenuItem,
-            this.DeleteKeyToolStripMenuItem});
+            this.DeleteKeyToolStripMenuItem,
+            this.CutKeyToolStripMenuItem});
             this.編輯ToolStripMenuItem.Font = new System.Drawing.Font("微軟正黑體", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.編輯ToolStripMenuItem.Name = "編輯ToolStripMenuItem";
-            this.編輯ToolStripMenuItem.Size = new System.Drawing.Size(53, 23);
+            this.編輯ToolStripMenuItem.Size = new System.Drawing.Size(53, 24);
             this.編輯ToolStripMenuItem.Text = "編輯";
             // 
             // CopyKeyToolStripMenuItem
@@ -209,6 +216,13 @@
             this.DeleteKeyToolStripMenuItem.Text = "刪除key";
             this.DeleteKeyToolStripMenuItem.Click += new System.EventHandler(this.DeleteKeyToolStripMenuItem_Click);
             // 
+            // CutKeyToolStripMenuItem
+            // 
+            this.CutKeyToolStripMenuItem.Name = "CutKeyToolStripMenuItem";
+            this.CutKeyToolStripMenuItem.Size = new System.Drawing.Size(147, 26);
+            this.CutKeyToolStripMenuItem.Text = "剪下key";
+            this.CutKeyToolStripMenuItem.Click += new System.EventHandler(this.CutKeyToolStripMenuItem_Click);
+            // 
             // contextMenuStrip1
             // 
             this.contextMenuStrip1.Font = new System.Drawing.Font("微軟正黑體", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
@@ -218,6 +232,8 @@
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.btn_color);
+            this.panel1.Controls.Add(this.lab_color);
             this.panel1.Controls.Add(this.groupBox3);
             this.panel1.Controls.Add(this.groupBox2);
             this.panel1.Controls.Add(this.groupBox1);
@@ -225,8 +241,26 @@
             this.panel1.Font = new System.Drawing.Font("微軟正黑體", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.panel1.Location = new System.Drawing.Point(0, 30);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1596, 459);
+            this.panel1.Size = new System.Drawing.Size(1768, 459);
             this.panel1.TabIndex = 2;
+            // 
+            // btn_color
+            // 
+            this.btn_color.Location = new System.Drawing.Point(1608, 142);
+            this.btn_color.Name = "btn_color";
+            this.btn_color.Size = new System.Drawing.Size(78, 70);
+            this.btn_color.TabIndex = 7;
+            this.btn_color.UseVisualStyleBackColor = true;
+            this.btn_color.Click += new System.EventHandler(this.btn_color_Click);
+            // 
+            // lab_color
+            // 
+            this.lab_color.AutoSize = true;
+            this.lab_color.Location = new System.Drawing.Point(1620, 243);
+            this.lab_color.Name = "lab_color";
+            this.lab_color.Size = new System.Drawing.Size(17, 19);
+            this.lab_color.TabIndex = 6;
+            this.lab_color.Text = "  ";
             // 
             // groupBox3
             // 
@@ -1099,7 +1133,7 @@
             this.panelWaveform.Font = new System.Drawing.Font("微軟正黑體", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.panelWaveform.Location = new System.Drawing.Point(39, 535);
             this.panelWaveform.Name = "panelWaveform";
-            this.panelWaveform.Size = new System.Drawing.Size(1557, 226);
+            this.panelWaveform.Size = new System.Drawing.Size(1729, 226);
             this.panelWaveform.TabIndex = 3;
             this.panelWaveform.Paint += new System.Windows.Forms.PaintEventHandler(this.panelWaveform_Paint);
             this.panelWaveform.MouseClick += new System.Windows.Forms.MouseEventHandler(this.panelWaveform_MouseClick);
@@ -1136,12 +1170,31 @@
             this.btn_creat_key.UseVisualStyleBackColor = true;
             this.btn_creat_key.Click += new System.EventHandler(this.btn_create_key_Click);
             // 
+            // btn_restart
+            // 
+            this.btn_restart.Font = new System.Drawing.Font("微軟正黑體", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.btn_restart.Location = new System.Drawing.Point(267, 498);
+            this.btn_restart.Name = "btn_restart";
+            this.btn_restart.Size = new System.Drawing.Size(75, 26);
+            this.btn_restart.TabIndex = 7;
+            this.btn_restart.Text = "stop";
+            this.btn_restart.UseVisualStyleBackColor = true;
+            this.btn_restart.Click += new System.EventHandler(this.btn_restart_Click);
+            // 
+            // SaveToolStripMenuItem
+            // 
+            this.SaveToolStripMenuItem.Name = "SaveToolStripMenuItem";
+            this.SaveToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.SaveToolStripMenuItem.Text = "儲存模式檔";
+            this.SaveToolStripMenuItem.Click += new System.EventHandler(this.Save_ToolStripMenuItem_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
             this.ClientSize = new System.Drawing.Size(1924, 831);
+            this.Controls.Add(this.btn_restart);
             this.Controls.Add(this.btn_creat_key);
             this.Controls.Add(this.timeLabel);
             this.Controls.Add(this.playPauseButton);
@@ -1151,12 +1204,13 @@
             this.KeyPreview = true;
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "Form1";
-            this.Text = "光蛇編招系統";
+            this.Text = "   ";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Form1_KeyDown);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
             this.groupBox2.ResumeLayout(false);
@@ -1259,6 +1313,11 @@
         private System.Windows.Forms.TextBox txt_YH_Range;
         private System.Windows.Forms.Label label29;
         private System.Windows.Forms.ToolStripMenuItem DeleteKeyToolStripMenuItem;
+        private System.Windows.Forms.Button btn_color;
+        private System.Windows.Forms.Label lab_color;
+        private System.Windows.Forms.ToolStripMenuItem CutKeyToolStripMenuItem;
+        private System.Windows.Forms.Button btn_restart;
+        private System.Windows.Forms.ToolStripMenuItem SaveToolStripMenuItem;
     }
 }
 

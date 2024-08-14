@@ -108,7 +108,6 @@ void ColorScheduler::updateHeading(uint16_t idx, bool restart){
 }
 
 CRGB inline ColorScheduler::getPixelColor(uint8_t y){
-    Serial.println(LIMIT_OUTPUT(headingColor.v + getFuncValue(&YVp, y)));
     return CHSV(headingColor.h + getFuncValue(&YHp, y),
                 LIMIT_OUTPUT(headingColor.s + getFuncValue(&YSp, y)),
                 LIMIT_OUTPUT(headingColor.v + getFuncValue(&YVp, y)));
@@ -182,12 +181,30 @@ time_t Effects::getMusicTime(){
     return current_music_time + (millis() - last_music_update_time);
 }
 
+void Effects::lightOnOneLED(CRGB l){
+    pixels[0] = l;
+    showLED();
+}
+
+void Effects::lightOnOneLED(CRGB l, int num){
+    for(int i = 0; i < num; i++)
+      pixels[i] = l;
+    showLED();
+}
 /*  Perform the effect from buffer */
 void Effects::perform(){
-    if (buffer.isEmpty()) return;
+    if (force_start == 2){
+      effect_id = 0;
+      buffer.clean();
+    }
+    if (buffer.isEmpty()) {
+      clear();
+      lightOnOneLED(CHSV(130, 200 ,55));
+      return;
+      }
     Mode m;
     buffer.peek(&m);
-    if (m.start_time < current_music_time || force_start){
+    if (m.start_time < current_music_time || force_start == 1){
         // Load new mode
         buffer.pop(&m);
         Serial.print("Now Performing: ");
@@ -206,8 +223,13 @@ void Effects::perform(){
             case MODES_CMAP_YEN:    colormapYen(&m);       break;
             case MODES_CMAP_LOVE:   colormapLove(&m);      break;
             case MODES_CMAP_GEAR:   colormapGear(&m);      break;
+            case MODES_MAP_ESXOPT:  bitmapESXOPT(&m);    break;
             default: clear(); break;
         }
+    }
+    else{
+      clear();
+      lightOnOneLED(CHSV(130, 200 ,55));
     }
 }
 
@@ -255,7 +277,7 @@ bool Effects::checkDuration(Mode* m){
     return //millis() - effect_entry_time < m->duration/*
     //|| getMusicTime() > m->start_time + m->duration*/;
     ///* ||
-        (!force_start && getMusicTime() < m->start_time + m->duration)
+        (force_start!=2 && getMusicTime() < m->start_time + m->duration)
     //    */
         ;
 }
@@ -389,7 +411,7 @@ void Effects::bitmap(Mode* m, const uint32_t* map, int length){
     uint8_t space = m->param[3];
     setEffectStart(m);
     while( checkDuration(m) ){
-        for (int i=length-1; i>=0; i--){
+        for (int i=0; i<length; i++){
             uint16_t idx = getIdx();
             sch.updateHeading(idx);
             if (reverse)
@@ -460,5 +482,9 @@ void Effects::colormapLove(Mode* m){
 
 void Effects::colormapGear(Mode* m){
     colormap(m, GEAR, BITMAP_SIZE_GEAR);
+}
+
+void Effects::bitmapESXOPT(Mode* m){
+    bitmap(m, BITMAP_ESXOPT, BITMAP_SIZE_ESXOPT);
 }
 

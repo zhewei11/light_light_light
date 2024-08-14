@@ -1,13 +1,15 @@
-const NUM_OF_LUX = 4
+const NUM_OF_LUX = 5
 const express = require('express');
 const fs = require('fs');
 var formidable = require('formidable');
 const app = express();
 const port = 10240;
-var light_state = [0, 0, 0, 0]
-var light_effect = [0, 0, 0, 0]
+var light_state = new Array(NUM_OF_LUX).fill(0);
+var light_effect = new Array(NUM_OF_LUX).fill(0);
+var lux_mode = new Array(NUM_OF_LUX).fill(0);
+var light_reset = new Array(NUM_OF_LUX).fill(0);
 var EXE_MODE = 0 //0 auto 1 manual
-var SONG = "testArray.json"
+var SONG = "OnMyOwn.json"
 var Time = 0;
 
 let EffectMapData = fs.readFileSync("public/"+ SONG);
@@ -51,7 +53,8 @@ const ENUM_MODES_NAMES = [
     "MODES_CMAP_BENSON",
     "MODES_CMAP_YEN",
     "MODES_CMAP_LOVE",
-    "MODES_CMAP_GEAR"
+    "MODES_CMAP_GEAR",
+    "MODES_MAP_ESXOPT"
 ]
 
 ENUM_MODES = createEnum(ENUM_MODES_NAMES);
@@ -78,12 +81,12 @@ app.use(express.static(__dirname + '/public'));
 app.get("/get_effect", (req, res) => {
     var ID = req.query.id;
     var LUX_ID = req.query.luxid;
-    if (ID >= Object.keys(EffectMap).length || LUX_ID >= NUM_OF_LUX) {
+    if (ID >= Object.keys(EffectMap[0]).length || LUX_ID >= NUM_OF_LUX) {
         res.send("ERROR!!")
     }
     else {
-        res.send(stringify(EffectMap[LUX_ID][ID]))
-        console.log(EffectMap[LUX_ID][ID].mode);
+        res.send(stringify(EffectMap[lux_mode[LUX_ID]][ID]))
+        console.log(EffectMap[lux_mode[LUX_ID]][ID].mode);
         console.log(ID);
     }
 
@@ -102,7 +105,7 @@ app.get("/esp_time", (req, res) => {
     var now = new Date();
     light_state[id] = now.getTime()
     light_effect[id] = req.query.effect
-    var mode = (EXE_MODE == 0) ? "A" : "M"
+    var mode =(light_reset[id]) ? "C" : ((EXE_MODE == 0) ? "A" : "M")
     res.send(mode + Time.toString())
 })
 
@@ -128,6 +131,38 @@ app.get("/get_stat", (req, res) => {
 app.get("/get_light", (req, res) => {
     var id = req.query.id
     res.send(light_effect[id].toString());
+})
+
+app.get("/update_lux_mode", (req, res) => {
+    var id = parseInt(req.query.id);
+    var mode = parseInt(req.query.mode);
+
+    // 检查 id 是否为有效的数组索引
+    if (isNaN(id) || id < 0 || id >= lux_mode.length) {
+        return res.status(400).send("Invalid ID");
+    }
+
+    // 检查 mode 是否为有效数字
+    if (isNaN(mode)) {
+        return res.status(400).send("Invalid mode");
+    }
+
+    lux_mode[id] = mode;  // 更新数组中的值
+    res.send("Lux " + id.toString() + " mode: " + mode.toString());
+});
+
+app.get("/update_lux_reset", (req, res) => {
+    var id = parseInt(req.query.id);
+    var reset = req.query.clear === 'true'; // 将传递的字符串转换为布尔值
+
+    // 检查 id 是否为有效的数组索引
+    if (isNaN(id) || id < 0 || id >= NUM_OF_LUX) {
+        return res.status(400).send("Invalid ID");
+    }
+
+    // reset 已经是一个布尔值了，不需要再检查是否为有效数字
+    light_reset[id] = reset;  // 更新数组中的值
+    res.send("Lux " + id.toString() + " reset: " + reset);
 })
 
 app.post('/fileupload', function (req, res) {

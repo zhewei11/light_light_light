@@ -1,6 +1,8 @@
-const NUM_OF_LUX = 4
+const NUM_OF_LUX = 5
+const NUM_OF_MODE =5
+
 var NUM_OF_EFFECT
-var MODEDATA = "testArray.json"
+var MODEDATA = "OnMyOwn.json"
 
 $(document).ready(function () {
     table_append()
@@ -46,7 +48,8 @@ const ENUM_MODES_NAMES = [
     "MODES_CMAP_BENSON",
     "MODES_CMAP_YEN",
     "MODES_CMAP_LOVE",
-    "MODES_CMAP_GEAR"
+    "MODES_CMAP_GEAR",
+    "MODES_MAP_ESXOPT"
 ]
 ENUM_MODES = createEnum(ENUM_MODES_NAMES);
 ENUM_FUNC = createEnum(ENUM_FUNC_NAMES);
@@ -81,6 +84,14 @@ function stat_update() {
             var lig = getEnumKey(ENUM_MODES, data)
             $(id).html(lig.substring(6))
         });
+        var id = "#" + (dd + 1).toString() + "-modeNo";
+        var modeValue = $(id).val();
+        $.get("/update_lux_mode", { id: dd, mode: modeValue }, function(response) {
+        });
+        var id = "#" + (dd + 1).toString() + "-checkbox";
+        var clear = $(id).prop('checked')
+        $.get("/update_lux_reset", { id: dd, clear: clear }, function(response) {
+        });
     }
 
 }
@@ -97,6 +108,14 @@ function table_append() {
             var $col_2 = $('<td class="td1" id="' + n + '-state"></td>')
             var $col_3 = $('<td class="td1" id="' + n + '-light"></td>')
             var $col_4 = $('<td class="td1" id="' + n + '-last"></td>')
+            
+            var $select = $('<select class="mode-select" id="' + n + '-modeNo"></select>');
+            for (var mode = 0; mode < NUM_OF_MODE; mode++) {
+                $select.append('<option value="' + mode + '">' + mode + '</option>');
+            }
+            var $col_5 = $('<td class="td1"></td>').append($select);
+            var $checkbox = $('<input type="checkbox" class="checkbox" id="' + n + '-checkbox">');
+            var $col_6 = $('<td class="td1"></td>').append($checkbox)
             /*var $checkbox_control = '<input type="checkbox" class="checkbox" id="' + n + '-checkbox" value="blue">'
             var $col_5 = $('<td class="td1"></td>').html($checkbox_control);
             var $bright = '<output id="' + n + '-b-val"></output><input type="range" id="' + n + '-brightness" min="0" max="100">'
@@ -111,7 +130,7 @@ function table_append() {
 
             // Add the columns to the row
             //$row.append($col_1, $col_2, $col_3, $col_4, $col_5, $col_6, $col_7, $col_8, $col_9);
-            $row.append($col_1, $col_2, $col_3, $col_4);
+            $row.append($col_1, $col_2, $col_3, $col_4, $col_5, $col_6);
 
             // Add to the newly-generated array
             return $row;
@@ -127,11 +146,14 @@ function getEnumKey(enum_dict, id) {
 }
 function create_effect_table() {
     $.getJSON(MODEDATA, function (data) {
-        var len = Object.keys(data[0]).length;
-        NUM_OF_EFFECT = len;
+        NUM_OF_EFFECT = new Array(NUM_OF_MODE).fill(0)
+        for (let index = 0; index < NUM_OF_MODE; index++) {
+        var len = Object.keys(data[index]).length;
+        NUM_OF_EFFECT[index] = len;
+        }
         var $myTable = $('#table3');
 
-        for (let NO = 0; NO < NUM_OF_LUX; NO++) {
+        for (let NO = 0; NO < NUM_OF_MODE; NO++) {
             var $noHeaderRow = $('<tr class="tr3 no-header"></tr>');
             var $noHeaderCol = $('<td class="td3" colspan="38"></td>').html(NO);
             $noHeaderRow.append($noHeaderCol);
@@ -211,8 +233,8 @@ var music_id = document.getElementById("music")
 document.getElementById("music").ontimeupdate = function () {
     $.get("/start?time=" + music_id.currentTime.toFixed(3) * 1000);
     $('#music-time').html(music_id.currentTime.toFixed(2))
-    for (let index = 0; index < NUM_OF_LUX; index++) {
-        for (var i = 0; i < NUM_OF_EFFECT - 1; i++) {
+    for (let index = 0; index < NUM_OF_MODE; index++) {
+        for (var i = 0; i < NUM_OF_EFFECT[index] - 1; i++) {
             var time1 = "#effect-time-" + index.toString() + "-" + i.toString()
             var time2 = "#effect-time-" + index.toString() + "-" + (i + 1).toString()
             var value1 = parseInt($(time1).text())

@@ -27,6 +27,7 @@ namespace LightSnake
         private AudioFileReader audioFile;
         private Timer playbackTimer;
         private string copiedKeyData = null;
+        private string saveFilePath = null;
 
         #endregion
 
@@ -37,7 +38,11 @@ namespace LightSnake
             InitializeComponent();
             InitializeScrollBar();
             InitializePlaybackControls();
+
+            SaveToolStripMenuItem.Click += Save_ToolStripMenuItem_Click;
+            SaveToolStripMenuItem.ShortcutKeys = Keys.Control | Keys.S;
         }
+
 
         #endregion
 
@@ -86,9 +91,15 @@ namespace LightSnake
 
             if (audioFile != null)
             {
-                if (outputDevice.PlaybackState == PlaybackState.Stopped || outputDevice.PlaybackState == PlaybackState.Paused)
+                if (outputDevice.PlaybackState == PlaybackState.Stopped)
                 {
                     outputDevice.Init(audioFile);
+                    outputDevice.Play();
+                    playPauseButton.Text = "Pause";
+                    playbackTimer.Start();
+                }
+                else if (outputDevice.PlaybackState == PlaybackState.Paused)
+                {
                     outputDevice.Play();
                     playPauseButton.Text = "Pause";
                     playbackTimer.Start();
@@ -101,6 +112,37 @@ namespace LightSnake
                 }
             }
         }
+
+        private void btn_restart_Click(object sender, EventArgs e)
+        {
+            if (audioFile != null)
+            {
+                // 停止播放並重置音訊位置
+                if (outputDevice != null)
+                {
+                    if (outputDevice.PlaybackState == PlaybackState.Playing || outputDevice.PlaybackState == PlaybackState.Paused)
+                    {
+                        outputDevice.Stop();
+                    }
+                }
+
+                // 重置音訊文件位置到開始
+                audioFile.Position = 0;
+
+                // 如果需要，重新初始化播放設備
+                if (outputDevice != null)
+                {
+                    outputDevice.Init(audioFile);
+                }
+
+                // 更新UI元素
+                playPauseButton.Text = "Play";
+                UpdateTimeLabel();
+                panelWaveform.Invalidate();
+
+            }
+        }
+
 
         private void PlaybackTimer_Tick(object sender, EventArgs e)
         {
@@ -187,7 +229,7 @@ namespace LightSnake
             if (listBox_effect.SelectedIndex == -1) return;
 
             var selectedItem = listBox_effect.SelectedItem.ToString();
-            var selectedKeyTime = int.Parse(selectedItem.Split(',')[1].Split(':')[1].Replace("ms", "").Trim());
+            var selectedKeyTime = int.Parse(selectedItem.Split(',')[1].Split(':')[1].Trim())*60000 + int.Parse(selectedItem.Split(',')[1].Split(':')[2].Split('.')[0].Trim()) * 1000 + int.Parse(selectedItem.Split(',')[1].Split(':')[2].Split('.')[1].Trim());
 
             var selectedKey = keys.FirstOrDefault(k => k.Key == selectedKeyTime);
             if (selectedKey.Equals(default(KeyValuePair<int, string>))) return;
@@ -256,7 +298,7 @@ namespace LightSnake
             }
 
             copiedKeyData = currentKey.Value;
-            MessageBox.Show("key已複製", "成功", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            //MessageBox.Show("key已複製", "成功", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         private void PasteKeyToolStripMenuItem_Click(object sender, EventArgs e)
@@ -286,7 +328,7 @@ namespace LightSnake
 
             UpdateListBoxEffect();
             panelWaveform.Invalidate();
-            MessageBox.Show("key已貼上", "成功", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            //MessageBox.Show("key已貼上", "成功", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         private void DeleteKeyToolStripMenuItem_Click(object sender, EventArgs e)
@@ -303,9 +345,25 @@ namespace LightSnake
             keys.Remove(existingKey);
             UpdateListBoxEffect();
             panelWaveform.Invalidate();
-            MessageBox.Show("key已刪除", "成功", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            //MessageBox.Show("key已刪除", "成功", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
+        private void CutKeyToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var currentPosition = (int)(audioFile.CurrentTime.TotalMilliseconds);
+            var currentKey = keys.FirstOrDefault(k => k.Key == currentPosition);
+            if (currentKey.Equals(default(KeyValuePair<int, string>)))
+            {
+                MessageBox.Show("當前時間沒有key", "錯誤", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            copiedKeyData = currentKey.Value;
+            keys.Remove(currentKey);
+            UpdateListBoxEffect();
+            panelWaveform.Invalidate();
+            //MessageBox.Show("key已剪下", "成功", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
         private void Form1_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.Control && e.KeyCode == Keys.C)
@@ -330,11 +388,18 @@ namespace LightSnake
         {
             await Task.Run(() =>
             {
+                // Dispose of previous audio file if it exists
                 if (audioFile != null)
                 {
                     audioFile.Dispose();
                 }
                 audioFile = new AudioFileReader(filePath);
+
+                // Dispose and recreate outputDevice
+                if (outputDevice != null)
+                {
+                    outputDevice.Dispose();
+                }
 
                 waveformSamples = new List<float>();
                 sampleRate = audioFile.WaveFormat.SampleRate;
@@ -350,6 +415,7 @@ namespace LightSnake
             });
         }
 
+
         private void CreateFullResolutionWaveform()
         {
             fullResolutionWaveform = new List<PointF>();
@@ -364,7 +430,9 @@ namespace LightSnake
         {
             await CreateWaveformBitmapAsync();
             playPauseButton.Enabled = true;
+            zoomFactor = (float)(audioFile.TotalTime.TotalSeconds / 40);
             panelWaveform.Invalidate();
+            UpdateWaveform();
         }
 
         private async Task CreateWaveformBitmapAsync()
@@ -457,8 +525,10 @@ namespace LightSnake
             }
 
             int sourceX = hScrollBar.Visible ? hScrollBar.Value : 0;
+            int pixelOffset = (int)(200 * waveformBitmap.Width / (float)audioFile.TotalTime.TotalMilliseconds);
+
             e.Graphics.DrawImage(waveformBitmap, new Rectangle(0, 0, panelWaveform.Width, panelWaveform.Height),
-                                 new Rectangle(sourceX, 0, panelWaveform.Width, waveformBitmap.Height),
+                                 new Rectangle(sourceX - pixelOffset, 0, panelWaveform.Width, waveformBitmap.Height),
                                  GraphicsUnit.Pixel);
 
             var timePen = new Pen(Color.Gray);
@@ -483,13 +553,13 @@ namespace LightSnake
                 if (x >= 0 && x < panelWaveform.Width)
                 {
                     e.Graphics.DrawLine(keyPen, x, 0, x, panelWaveform.Height);
-                    e.Graphics.DrawString(mode, this.Font, Brushes.Red, x, panelWaveform.Height / 2);
+                    e.Graphics.DrawString(mode.Substring(6), this.Font, Brushes.Red, x, panelWaveform.Height / 2);
                 }
             }
 
             if (audioFile != null)
             {
-                float playbackPosition = (float)(audioFile.CurrentTime.TotalMilliseconds * widthScale) - sourceX;
+                float playbackPosition = (float)((audioFile.CurrentTime.TotalMilliseconds) * widthScale) - sourceX;
                 if (playbackPosition >= 0 && playbackPosition < panelWaveform.Width)
                 {
                     e.Graphics.DrawLine(new Pen(Color.Green, 2), playbackPosition, 0, playbackPosition, panelWaveform.Height);
@@ -566,7 +636,12 @@ namespace LightSnake
                     p3 = int.Parse(txt_p3.Text),
                     p4 = int.Parse(txt_p4.Text)
                 };
+                var existingKey = keys.FirstOrDefault(k => k.Key == timePosition);
 
+                if (!existingKey.Equals(default(KeyValuePair<int, string>)))
+                {
+                    keys.Remove(existingKey);
+                }
                 keys.Add(new KeyValuePair<int, string>(timePosition, JsonConvert.SerializeObject(newKey)));
                 UpdateListBoxEffect();
                 panelWaveform.Invalidate();
@@ -602,6 +677,7 @@ namespace LightSnake
 
                         UpdateListBoxEffect();
                         panelWaveform.Invalidate();
+                        saveFilePath = filePath; // 存储文件路径
                         MessageBox.Show("JSON文件已成功載入", "成功", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
                     catch (Exception ex)
@@ -609,6 +685,43 @@ namespace LightSnake
                         MessageBox.Show($"載入JSON文件時發生錯誤：{ex.Message}", "錯誤", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                 }
+            }
+        }
+        private async void Save_ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (string.IsNullOrEmpty(saveFilePath))
+            {
+                MessageBox.Show("沒有打開的文件可以保存", "錯誤", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            try
+            {
+                var sortedKeys = keys.OrderBy(k => k.Key).ToList();
+
+                for (int i = 0; i < sortedKeys.Count; i++)
+                {
+                    var keyData = JsonConvert.DeserializeObject<dynamic>(sortedKeys[i].Value);
+                    if (i < sortedKeys.Count - 1)
+                    {
+                        keyData.duration = sortedKeys[i + 1].Key - sortedKeys[i].Key;
+                    }
+                    else
+                    {
+                        keyData.duration = (int)audioFile.TotalTime.TotalMilliseconds - sortedKeys[i].Key;
+                    }
+                    sortedKeys[i] = new KeyValuePair<int, string>(sortedKeys[i].Key, JsonConvert.SerializeObject(keyData));
+                }
+
+                var keysToExport = sortedKeys.Select(k => JsonConvert.DeserializeObject<dynamic>(k.Value)).ToList();
+                string jsonContent = JsonConvert.SerializeObject(keysToExport, Formatting.Indented);
+
+                await Task.Run(() => File.WriteAllText(saveFilePath, jsonContent));
+                MessageBox.Show("JSON文件已成功保存", "成功", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"保存JSON文件時發生錯誤：{ex.Message}", "錯誤", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -623,7 +736,7 @@ namespace LightSnake
 
             foreach (var key in sortedKeys)
             {
-                listBox_effect.Items.Add($"{((String)key.Data.mode).Substring(6)}, Time: {key.Time}ms");
+                listBox_effect.Items.Add($"{((String)key.Data.mode).Substring(6)}, \tTime: {key.Time / 60000}:{(key.Time % 60000) / 1000:D2}.{(key.Time % 1000):D3}");
             }
         }
 
@@ -675,7 +788,7 @@ namespace LightSnake
 
             float clickPosition = (e.X + hScrollBar.Value) / (float)waveformBitmap.Width;
             long newPosition = (long)(clickPosition * audioFile.Length);
-            audioFile.Position = newPosition;
+            audioFile.Position = newPosition ;
             UpdateTimeLabel();
             panelWaveform.Invalidate();
         }
@@ -730,6 +843,7 @@ namespace LightSnake
                 CMAP_YEN
                 CMAP_LOVE
                 CMAP_GEAR
+                MAP_ESXOPT
                 */
                 case "CLEAR":
                     lab_p1.Text = "";
@@ -811,6 +925,12 @@ namespace LightSnake
                     break;
                 case "CMAP_GEAR":
                     lab_p1.Text = "";
+                    lab_p2.Text = "";
+                    lab_p3.Text = "";
+                    lab_p4.Text = "space";
+                    break;
+                case "MAP_ESXOPT":
+                    lab_p1.Text = "reverse";
                     lab_p2.Text = "";
                     lab_p3.Text = "";
                     lab_p4.Text = "space";
@@ -1122,5 +1242,17 @@ namespace LightSnake
         }
 
         #endregion
+
+        private void btn_color_Click(object sender, EventArgs e)
+        {
+            ColorDialog colorDialog = new ColorDialog();
+            colorDialog.ShowDialog();
+            if(colorDialog.Color != null)
+            {
+                btn_color.BackColor = colorDialog.Color;
+                lab_color.Text = "H:" + (colorDialog.Color.GetHue()*255/360).ToString()+"\nS:"+(colorDialog.Color.GetSaturation()*255).ToString() + "\nV:" + (colorDialog.Color.GetBrightness()*255).ToString();
+            }
+        }
+
     }
 }
