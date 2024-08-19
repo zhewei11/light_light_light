@@ -9,7 +9,7 @@ var light_effect = new Array(NUM_OF_LUX).fill(0);
 var lux_mode = new Array(NUM_OF_LUX).fill(0);
 var light_reset = new Array(NUM_OF_LUX).fill(0);
 var EXE_MODE = 0 //0 auto 1 manual
-var SONG = "OnMyOwn.json"
+var SONG = "Barricades.json"
 var Time = 0;
 
 let EffectMapData = fs.readFileSync("public/"+ SONG);
@@ -106,7 +106,7 @@ app.get("/esp_time", (req, res) => {
     light_state[id] = now.getTime()
     light_effect[id] = req.query.effect
     var mode =(light_reset[id]) ? "C" : ((EXE_MODE == 0) ? "A" : "M")
-    res.send(mode + Time.toString())
+    res.send(mode + (Time).toString())
 })
 
 /*function state_update() {

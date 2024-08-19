@@ -114,7 +114,7 @@ int Communication::feed_data(Mode* m, String s){
     int start=0, len=0;
     uint32_t checksum = 0;
     if(s != "ERROR!!")
-    Serial.println(s);
+      Serial.println(s);
     for (int i=0; i<s.length(); i++){
         // If the first charactor is not `M`, return as error
         if (i==0 && s[0] != 'M') return 1;
@@ -181,27 +181,39 @@ int Communication::feed_data(Mode* m, String s){
 bool Communication::receive(Mode* m, int current_id){
     if (WiFi.status() == WL_CONNECTED){
         /* Request data from server */
-        String url ="http://" + WiFi.gatewayIP().toString() + String(WIFI_REQUEST_URL) + "?id=" + current_id + "&luxid=" + LUX_ID;
+        String url = "http://" + WiFi.gatewayIP().toString() + String(WIFI_REQUEST_URL) + "?id=" + current_id + "&luxid=" + LUX_ID;
         //Serial.println(url);
         http.begin(url);
         int httpCode = http.GET();
-        String web_data = http.getString();
+        
+        if (httpCode == 200) {  // Check if the request was successful
+            String web_data = http.getString();
 
-        //Serial.print("\n\nnumber: ");
-        //Serial.println(current_id);
-        if (feed_data(m, web_data) != 0){
-            // Message error, Report it
-            return false;
+            //Serial.print("\n\nnumber: ");
+            //Serial.println(current_id);
+            if (feed_data(m, web_data) != 0){
+                // Message error, Report it
+                http.end();
+                return false;
+            }
+            #ifdef DEBUGGER_TASK_REPORT
+            PrintMode(m);
+            #endif
+            PrintMode(m);
+        } else {
+            // Handle errors or unexpected response codes
+            http.end();
+            return false;  // Return false if the request failed
         }
         http.end();
-        #ifdef DEBUGGER_TASK_REPORT
-        PrintMode(m);
-        #endif
-        PrintMode(m);
     }
-    else WifiErrorHandle();
+    else {
+        WifiErrorHandle();
+        return false;  // Return false if not connected to WiFi
+    }
     return true;
 }
+
 
 time_t Communication::check_start_time(uint8_t id, MODES mode, uint8_t* force_start){
     if (WiFi.status() == WL_CONNECTED){
@@ -210,19 +222,24 @@ time_t Communication::check_start_time(uint8_t id, MODES mode, uint8_t* force_st
         //Serial.println(url);
         http.begin(url);
         int httpCode = http.GET();
-        String web_data = http.getString();
-        if (web_data[0] == 'C')
-            *force_start = 2;
-        else if (web_data[0] == 'A')
-            *force_start = 0;
-        else
-            *force_start = 1; 
+        if (httpCode == 200) {  // Successful request
+            String web_data = http.getString();
+            if (web_data.length() > 0) {
+                if (web_data[0] == 'C')
+                    *force_start = 2;
+                else if (web_data[0] == 'M')
+                    *force_start = 1;
+                else
+                    *force_start = 0; 
+                return web_data.substring(1).toInt();
+            }
+        }
         http.end();
-        return web_data.substring(1).toInt();
     }
     else WifiErrorHandle();
-    return 0;
+    return 0 - 1;
 }
+
 
 void Communication::WifiErrorHandle() {
     #ifdef DEBUGGER

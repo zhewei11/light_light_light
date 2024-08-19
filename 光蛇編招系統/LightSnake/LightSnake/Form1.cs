@@ -39,8 +39,6 @@ namespace LightSnake
             InitializeScrollBar();
             InitializePlaybackControls();
 
-            SaveToolStripMenuItem.Click += Save_ToolStripMenuItem_Click;
-            SaveToolStripMenuItem.ShortcutKeys = Keys.Control | Keys.S;
         }
 
 
@@ -364,22 +362,6 @@ namespace LightSnake
             panelWaveform.Invalidate();
             //MessageBox.Show("key已剪下", "成功", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
-        private void Form1_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.Control && e.KeyCode == Keys.C)
-            {
-                CopyKeyToolStripMenuItem_Click(this, new EventArgs());
-            }
-            else if (e.Control && e.KeyCode == Keys.V)
-            {
-                PasteKeyToolStripMenuItem_Click(this, new EventArgs());
-            }
-            else if (e.KeyCode == Keys.Delete)
-            {
-                DeleteKeyToolStripMenuItem_Click(this, new EventArgs());
-            }
-        }
-
         #endregion
 
         #region Audio Handling
@@ -843,6 +825,7 @@ namespace LightSnake
                 CMAP_YEN
                 CMAP_LOVE
                 CMAP_GEAR
+                MAP_ESXOPT
                 MAP_ESXOPT
                 */
                 case "CLEAR":

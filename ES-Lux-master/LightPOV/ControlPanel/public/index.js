@@ -1,8 +1,8 @@
 const NUM_OF_LUX = 5
-const NUM_OF_MODE =5
+const NUM_OF_MODE =4
 
 var NUM_OF_EFFECT
-var MODEDATA = "OnMyOwn.json"
+var MODEDATA = "Barricades.json"
 
 $(document).ready(function () {
     table_append()
@@ -159,7 +159,7 @@ function create_effect_table() {
             $noHeaderRow.append($noHeaderCol);
             $myTable.append($noHeaderRow);
 
-            for (var i = 0; i < len; i++) {
+            for (var i = 0; i < NUM_OF_EFFECT[NO]; i++) {
                 if (data[NO] && data[NO][i]) {
                     var rowElements = function () {
                         var $row = $('<tr class="tr3"></tr>');

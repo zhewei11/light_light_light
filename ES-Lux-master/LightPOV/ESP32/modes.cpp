@@ -63,11 +63,12 @@ uint16_t ColorScheduler::calc_pulse(uint16_t idx, uint8_t range, uint8_t lower, 
  *  |           |
  * +     +     +  lower
  * |range|range|
+ * num = 2
  */ 
 uint16_t ColorScheduler::calc_step(uint16_t idx, uint8_t range, uint8_t lower, uint8_t step, uint8_t num, bool overflow){
     uint8_t state = ((int)idx % (range * num)) / range;
     uint16_t output = lower + step * state;
-    return (!overflow)?LIMIT_OUTPUT(output):output;
+    return output;
     //return (!overflow && output > 0xff) ? 255 : output;
 }
 void ColorScheduler::SetXHsvParam(ValueParam H, ValueParam S, ValueParam V){
@@ -109,8 +110,8 @@ void ColorScheduler::updateHeading(uint16_t idx, bool restart){
 
 CRGB inline ColorScheduler::getPixelColor(uint8_t y){
     return CHSV(headingColor.h + getFuncValue(&YHp, y),
-                LIMIT_OUTPUT(headingColor.s + getFuncValue(&YSp, y)),
-                LIMIT_OUTPUT(headingColor.v + getFuncValue(&YVp, y)));
+                headingColor.s + getFuncValue(&YSp, y),
+                headingColor.v + getFuncValue(&YVp, y));
 }
 
 void ColorScheduler::getPixelColor(CRGB* pixels, uint32_t bitmap, CHSV replace){
@@ -173,6 +174,7 @@ void Effects::update(){
  *        Time scheduler
  ************************************/
 void Effects::setMusicTime(time_t t){
+    if(t == 0 - 1) return;
     last_music_update_time = millis();
     current_music_time = t;
 }
@@ -204,7 +206,7 @@ void Effects::perform(){
       }
     Mode m;
     buffer.peek(&m);
-    if (m.start_time < current_music_time || force_start == 1){
+    if (m.start_time < getMusicTime() || force_start == 1){
         // Load new mode
         buffer.pop(&m);
         Serial.print("Now Performing: ");
@@ -273,7 +275,7 @@ uint16_t Effects::getIdx(){
 
 /* Check whether to stop */
 bool Effects::checkDuration(Mode* m){
-    //Serial.println(getMusicTime());
+    Serial.println(getMusicTime());
     return //millis() - effect_entry_time < m->duration/*
     //|| getMusicTime() > m->start_time + m->duration*/;
     ///* ||

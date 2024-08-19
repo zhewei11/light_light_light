@@ -4,14 +4,14 @@
 // #define DEBUGGER
 // #define DEBUGGER_TASK_REPORT
 
-#define LUX_ID 3 
+#define LUX_ID 4 
 
 /* Type Definition */
 #define time_t unsigned long
 
-#define QUEUE_SIZE 5
+#define QUEUE_SIZE 10
 
-/* Pin Configuration */
+/* Pin Configuration */***
 #define PIN_LED 40       // Which pin on the Arduino is connected to the NeoPixels?
 #define NUMPIXELS 32 // How many NeoPixels are attached to the Arduino?
 
