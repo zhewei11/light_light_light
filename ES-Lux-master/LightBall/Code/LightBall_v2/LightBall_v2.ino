@@ -1,5 +1,7 @@
 #include <ESP8266WiFi.h>
 #include <ESP8266mDNS.h>
+#include <ESP8266HTTPClient.h>
+#include <WiFiClient.h>
 #include <WiFiUdp.h>
 #include <ArduinoOTA.h>
 #include "Constants.h"
@@ -8,21 +10,24 @@
 const char* ssid = "superfan";
 const char* password = "20031114";
 
-unsigned long previousMillis = 0;
+HTTPClient http;
+unsigned long musictime = 0;
 const long interval = 10; // 每10毫秒執行一次 buffer_update
 bool start;
+
 void setup() {
     Serial.begin(115200);
     Serial.println("Booting");
+    analogWrite(RED_LED_PIN, 10);
     
     WiFi.mode(WIFI_STA);
     WiFi.begin(ssid, password);
     
-    // while (WiFi.waitForConnectResult() != WL_CONNECTED) {
-        //Serial.println("Connection Failed! Rebooting...");
-        //delay(5000);
-        //ESP.restart();
-    // }
+    while (WiFi.waitForConnectResult() != WL_CONNECTED) {
+        Serial.println("Connection Failed! Rebooting...");
+        delay(500);
+        ESP.restart();
+    }
 
     ArduinoOTA.onStart([]() {
         String type;
@@ -61,18 +66,25 @@ void setup() {
 
 void loop() {
   ArduinoOTA.handle();
-  Serial.println(start);
-  
-  if(digitalRead(BTN_PIN)==0) {
-    led_init();
-    buffer_init();
-    start = 1;
-  }
-  if(start){
-    buffer_update();
+  if(start == 0){
+    WiFiClient client;
+    String url = "http://" + WiFi.gatewayIP().toString() + ":3000/gettime?id=" + ID;
+    //Serial.println(url);
+    http.begin(client, url);  // Updated to new API
+    int httpCode = http.GET();
+    if (httpCode == 200) {  // Successful request
+      String web_data = http.getString();
+      musictime = web_data.toInt();
+    }
+    http.end();
+    if (musictime != 0) {
+      led_init();
+      buffer_init(musictime);
+      start = 1;
+    }
+    analogWrite(BLUE_LED_PIN, 10);
   }
   else{
-    analogWrite(RED_LED_PIN,    16 );
+    buffer_update();
   }
-    
 }

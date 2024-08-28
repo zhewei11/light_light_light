@@ -7,3 +7,4 @@
 #define LM_SET_HSL_SPARK_SYNC 6
 #define LM_SET_HSL_METEOR_ASYNC 7
 #define LM_SET_HSL_METEOR_SYNC 8
+#define ID 7

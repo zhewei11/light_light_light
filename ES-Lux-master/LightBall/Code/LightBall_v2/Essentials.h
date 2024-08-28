@@ -49,6 +49,7 @@ extern uint24 buffer_start_time;
 
 void led_init();
 void buffer_init();
+void buffer_init(unsigned long musictime);
 void led_update();
 uint24 inline get_buffer_start_time();
 uint24 inline get_cmd_start_time(int index);

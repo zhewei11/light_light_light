@@ -22,6 +22,14 @@ void buffer_init(){
     buffer_start_time = millis();
 }
 
+void buffer_init(unsigned long musictime){
+    led_buffer[LED_R_INDEX] = LED_CLOSE;
+    led_buffer[LED_G_INDEX] = LED_CLOSE;
+    led_buffer[LED_B_INDEX] = LED_CLOSE;
+    buffer_excute_counter = 0;
+    buffer_start_time = millis() - musictime;
+}
+
 void inline led_update(){
     analogWrite(RED_LED_PIN,    led_buffer[LED_R_INDEX]);
     analogWrite(GREEN_LED_PIN,  led_buffer[LED_G_INDEX]);
@@ -58,7 +66,7 @@ uint24 inline get_cmd_para_3(int index, int para){
          | (uint24)cmd_buffer[index][BUFFER_P1_BIT + para + 2];
 }
 void buffer_update(){
-    Serial.print(buffer_excute_counter);
+    //Serial.println(buffer_excute_counter);
     // Serial.print(":");
     // Serial.print(get_buffer_start_time());
     // Serial.print(":");

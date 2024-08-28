@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Music Player and Connection Monitor</title>
+</head>
+<body>
+    <audio id="audioPlayer" controls>
+        <source src="FORMOZA World Now.mp3" type="audio/mp3">
+        Your browser does not support the audio element.
+    </audio>
+    <div id="timesContainer"></div>
+    <script>
+        const audioPlayer = document.getElementById('audioPlayer');
+        const timesContainer = document.getElementById('timesContainer');
+
+        // 更新播放時間
+        setInterval(() => {
+            const nowTime = Math.floor(audioPlayer.currentTime * 1000);
+            fetch('/settime', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ time: nowTime })
+            });
+        }, 50);
+
+        // 定期獲取並顯示每個裝置的上次連線時間
+        setInterval(() => {
+            fetch('/getlastconnecttimes')
+            .then(response => response.json())
+            .then(data => {
+                timesContainer.innerHTML = data.map((time, index) => `Device ${index + 1}: ${time} ms since last connect<br>`).join('');
+            });
+        }, 1000);
+    </script>
+</body>
+</html>
