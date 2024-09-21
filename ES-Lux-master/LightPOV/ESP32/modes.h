@@ -112,6 +112,8 @@ public:
     /* Effect list */
     void clear();
 
+    void clear(Mode* m);
+
     void plain(Mode* m);
 
     void square(Mode* m);

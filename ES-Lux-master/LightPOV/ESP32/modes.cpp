@@ -212,6 +212,7 @@ void Effects::perform(){
         Serial.print("Now Performing: ");
         Serial.println(m.mode);
         switch(m.mode){
+            case MODES_CLEAR:  clear(&m);  break;
             case MODES_PLAIN:  plain(&m);  break;
             case MODES_SQUARE: square(&m); break;
             case MODES_SICKLE: sickle(&m); break;
@@ -295,7 +296,14 @@ void Effects::clear(){
     FastLED.clear();
     showLED();
 }
-
+void Effects::clear(Mode* m){
+    Serial.println("Clear");
+    setEffectStart(m);
+    FastLED.clear();
+    showLED();
+    while( checkDuration(m) ){
+    }
+}
 void Effects::plain(Mode* m){
     Serial.println("Plain");
     setEffectStart(m);

@@ -1,13 +1,13 @@
 [
   {
     "mode": "MODES_PLAIN",
-    "start_time": 7371,
-    "duration": 11011,
+    "start_time": 2292,
+    "duration": 17003,
     "XH": {
       "func": 1,
       "range": 0,
       "lower": 0,
-      "p1": 148,
+      "p1": 200,
       "p2": 0
     },
     "XS": {
@@ -52,28 +52,130 @@
   },
   {
     "mode": "MODES_PLAIN",
-    "start_time": 18382,
-    "duration": 12491,
+    "start_time": 19295,
+    "duration": 2850,
     "XH": {
       "func": 1,
       "range": 0,
       "lower": 0,
-      "p1": 148,
+      "p1": 0,
       "p2": 0
     },
     "XS": {
       "func": 1,
       "range": 0,
       "lower": 0,
-      "p1": 180,
+      "p1": 255,
       "p2": 0
     },
     "XV": {
       "func": 5,
-      "range": 100,
+      "range": 25,
+      "lower": 100,
+      "p1": 254,
+      "p2": 51
+    },
+    "YH": {
+      "func": 0,
+      "range": 0,
+      "lower": 0,
+      "p1": 0,
+      "p2": 0
+    },
+    "YS": {
+      "func": 0,
+      "range": 0,
+      "lower": 0,
+      "p1": 0,
+      "p2": 0
+    },
+    "YV": {
+      "func": 0,
+      "range": 0,
+      "lower": 0,
+      "p1": 0,
+      "p2": 0
+    },
+    "p1": 0,
+    "p2": 0,
+    "p3": 0,
+    "p4": 0
+  },
+  {
+    "mode": "MODES_PLAIN",
+    "start_time": 22145,
+    "duration": 2267,
+    "XH": {
+      "func": 1,
+      "range": 0,
       "lower": 0,
       "p1": 150,
-      "p2": 2
+      "p2": 0
+    },
+    "XS": {
+      "func": 1,
+      "range": 0,
+      "lower": 0,
+      "p1": 255,
+      "p2": 0
+    },
+    "XV": {
+      "func": 5,
+      "range": 20,
+      "lower": 100,
+      "p1": 254,
+      "p2": 51
+    },
+    "YH": {
+      "func": 0,
+      "range": 0,
+      "lower": 0,
+      "p1": 0,
+      "p2": 0
+    },
+    "YS": {
+      "func": 0,
+      "range": 0,
+      "lower": 0,
+      "p1": 0,
+      "p2": 0
+    },
+    "YV": {
+      "func": 0,
+      "range": 0,
+      "lower": 0,
+      "p1": 0,
+      "p2": 0
+    },
+    "p1": 0,
+    "p2": 0,
+    "p3": 0,
+    "p4": 0
+  },
+  {
+    "mode": "MODES_CLEAR",
+    "start_time": 24412,
+    "duration": 600,
+    "XH": {
+      "func": 1,
+      "range": 0,
+      "lower": 0,
+      "p1": 0,
+      "p2": 0
+    },
+    "XS": {
+      "func": 1,
+      "range": 0,
+      "lower": 0,
+      "p1": 200,
+      "p2": 0
+    },
+    "XV": {
+      "func": 5,
+      "range": 255,
+      "lower": 200,
+      "p1": 236,
+      "p2": 11
     },
     "YH": {
       "func": 0,
@@ -103,13 +205,13 @@
   },
   {
     "mode": "MODES_PLAIN",
-    "start_time": 30873,
-    "duration": 5400,
+    "start_time": 25012,
+    "duration": 11261,
     "XH": {
-      "func": 1,
-      "range": 0,
+      "func": 2,
+      "range": 200,
       "lower": 0,
-      "p1": 0,
+      "p1": 255,
       "p2": 0
     },
     "XS": {
@@ -121,16 +223,16 @@
     },
     "XV": {
       "func": 1,
-      "range": 100,
-      "lower": 0,
+      "range": 255,
+      "lower": 200,
       "p1": 200,
-      "p2": 2
+      "p2": 11
     },
     "YH": {
-      "func": 0,
-      "range": 0,
+      "func": 2,
+      "range": 31,
       "lower": 0,
-      "p1": 0,
+      "p1": 255,
       "p2": 0
     },
     "YS": {
@@ -153,72 +255,21 @@
     "p4": 0
   },
   {
-    "mode": "MODES_SICKLE",
+    "mode": "MODES_PLAIN",
     "start_time": 36273,
-    "duration": 10432,
+    "duration": 10524,
     "XH": {
-      "func": 1,
-      "range": 0,
-      "lower": 0,
-      "p1": 0,
-      "p2": 0
-    },
-    "XS": {
-      "func": 1,
-      "range": 0,
-      "lower": 0,
-      "p1": 200,
-      "p2": 0
-    },
-    "XV": {
-      "func": 1,
+      "func": 2,
       "range": 100,
       "lower": 0,
-      "p1": 200,
-      "p2": 2
-    },
-    "YH": {
-      "func": 0,
-      "range": 0,
-      "lower": 0,
-      "p1": 0,
-      "p2": 0
-    },
-    "YS": {
-      "func": 0,
-      "range": 0,
-      "lower": 0,
-      "p1": 0,
-      "p2": 0
-    },
-    "YV": {
-      "func": 0,
-      "range": 0,
-      "lower": 0,
-      "p1": 0,
-      "p2": 0
-    },
-    "p1": 0,
-    "p2": 0,
-    "p3": 60,
-    "p4": 5
-  },
-  {
-    "mode": "MODES_PLAIN",
-    "start_time": 46705,
-    "duration": 4925,
-    "XH": {
-      "func": 1,
-      "range": 0,
-      "lower": 0,
-      "p1": 0,
+      "p1": 10,
       "p2": 0
     },
     "XS": {
       "func": 1,
       "range": 0,
       "lower": 0,
-      "p1": 200,
+      "p1": 255,
       "p2": 0
     },
     "XV": {
@@ -230,6 +281,57 @@
     },
     "YH": {
       "func": 2,
+      "range": 20,
+      "lower": 0,
+      "p1": 25,
+      "p2": 0
+    },
+    "YS": {
+      "func": 0,
+      "range": 0,
+      "lower": 0,
+      "p1": 0,
+      "p2": 0
+    },
+    "YV": {
+      "func": 5,
+      "range": 20,
+      "lower": 0,
+      "p1": 150,
+      "p2": 2
+    },
+    "p1": 0,
+    "p2": 0,
+    "p3": 60,
+    "p4": 5
+  },
+  {
+    "mode": "MODES_PLAIN",
+    "start_time": 46797,
+    "duration": 4833,
+    "XH": {
+      "func": 1,
+      "range": 0,
+      "lower": 0,
+      "p1": 170,
+      "p2": 0
+    },
+    "XS": {
+      "func": 1,
+      "range": 0,
+      "lower": 0,
+      "p1": 200,
+      "p2": 0
+    },
+    "XV": {
+      "func": 1,
+      "range": 100,
+      "lower": 0,
+      "p1": 200,
+      "p2": 2
+    },
+    "YH": {
+      "func": 0,
       "range": 12,
       "lower": 0,
       "p1": 14,
@@ -243,7 +345,7 @@
       "p2": 0
     },
     "YV": {
-      "func": 5,
+      "func": 0,
       "range": 24,
       "lower": 0,
       "p1": 200,
@@ -463,11 +565,11 @@
     "start_time": 92282,
     "duration": 16716,
     "XH": {
-      "func": 2,
-      "range": 170,
+      "func": 5,
+      "range": 105,
       "lower": 0,
-      "p1": 250,
-      "p2": 0
+      "p1": 32,
+      "p2": 9
     },
     "XS": {
       "func": 1,
@@ -484,7 +586,7 @@
       "p2": 2
     },
     "YH": {
-      "func": 2,
+      "func": 0,
       "range": 32,
       "lower": 0,
       "p1": 255,
@@ -869,7 +971,7 @@
   {
     "mode": "MODES_PLAIN",
     "start_time": 215268,
-    "duration": 10800,
+    "duration": 637,
     "XH": {
       "func": 1,
       "range": 170,
@@ -888,7 +990,7 @@
       "func": 2,
       "range": 255,
       "lower": 0,
-      "p1": 16,
+      "p1": 18,
       "p2": 2
     },
     "YH": {
@@ -908,7 +1010,58 @@
     "YV": {
       "func": 2,
       "range": 32,
-      "lower": 224,
+      "lower": 240,
+      "p1": 255,
+      "p2": 2
+    },
+    "p1": 32,
+    "p2": 0,
+    "p3": 100,
+    "p4": 3
+  },
+  {
+    "mode": "MODES_CLEAR",
+    "start_time": 215905,
+    "duration": 10163,
+    "XH": {
+      "func": 1,
+      "range": 170,
+      "lower": 0,
+      "p1": 0,
+      "p2": 0
+    },
+    "XS": {
+      "func": 1,
+      "range": 200,
+      "lower": 100,
+      "p1": 100,
+      "p2": 0
+    },
+    "XV": {
+      "func": 2,
+      "range": 255,
+      "lower": 0,
+      "p1": 18,
+      "p2": 2
+    },
+    "YH": {
+      "func": 0,
+      "range": 32,
+      "lower": 0,
+      "p1": 255,
+      "p2": 0
+    },
+    "YS": {
+      "func": 0,
+      "range": 32,
+      "lower": 0,
+      "p1": 55,
+      "p2": 0
+    },
+    "YV": {
+      "func": 2,
+      "range": 32,
+      "lower": 240,
       "p1": 255,
       "p2": 2
     },
@@ -937,9 +1090,9 @@
     },
     "XV": {
       "func": 2,
-      "range": 128,
+      "range": 100,
       "lower": 0,
-      "p1": 16,
+      "p1": 18,
       "p2": 2
     },
     "YH": {
@@ -959,7 +1112,7 @@
     "YV": {
       "func": 2,
       "range": 32,
-      "lower": 224,
+      "lower": 240,
       "p1": 255,
       "p2": 2
     },
@@ -1379,7 +1532,7 @@
   {
     "mode": "MODES_CLEAR",
     "start_time": 280218,
-    "duration": 16518,
+    "duration": -1271,
     "XH": {
       "func": 1,
       "range": 128,
