@@ -1,5 +1,5 @@
 const NUM_OF_LUX = 5
-const NUM_OF_MODE =1
+const NUM_OF_MODE =3
 
 var NUM_OF_EFFECT
 var MODEDATA = "The Beginning.json"
